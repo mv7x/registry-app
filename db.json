@@ -1,0 +1,29 @@
+{
+  "forms": [
+    {
+      "id": 1,
+      "name": "Customer Registration",
+      "description": "Register a new customer"
+    },
+    {
+      "id": 2,
+      "name": "Employee Registration",
+      "description": "Register a new employee"
+    },
+    {
+      "id": 3,
+      "name": "Product Registration",
+      "description": "Register a new product"
+    },
+    {
+      "id": 4,
+      "name": "Supplier Registration",
+      "description": "Register a new supplier"
+    },
+    {
+      "id": 5,
+      "name": "Company Registration",
+      "description": "Register a new company"
+    }
+  ]
+}
