@@ -1,1 +1,40 @@
-<h1>{{ title }}</h1>
+<h1>Registry Records</h1>
+
+<button type="button">Add</button>
+
+@if (records | async; as data) {
+  @if (data.length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Arabic Name</th>
+          <th>English Name</th>
+          <th>Department</th>
+          <th>Deadline</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (record of data; track record.id) {
+          <tr>
+            <td>{{ record.code }}</td>
+            <td>{{ record.arabicName }}</td>
+            <td>{{ record.englishName }}</td>
+            <td>{{ record.department }}</td>
+            <td>{{ record.submissionDeadline }}</td>
+            <td>
+              <button type="button">Edit</button>
+              <button type="button">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p>No records found.</p>
+  }
+} @else {
+  <p>Loading...</p>
+}
