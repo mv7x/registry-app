@@ -1,152 +1,605 @@
-<h1>Registry Records</h1>
+<div class="app-shell">
+  <header class="app-header">
+    <div class="header-content">
+      <div>
+        <p class="eyebrow">
+          {{ language() === 'en' ? 'REGISTRY MANAGEMENT' : 'إدارة السجلات' }}
+        </p>
 
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <h2>{{ editingId ? 'Edit Record' : 'Add Record' }}</h2>
+        <h1>{{ text().title }}</h1>
 
-  <input formControlName="code" placeholder="Code" />
+        <p class="subtitle">
+          {{
+            language() === 'en'
+              ? 'Manage, search and organize registry records.'
+              : 'إدارة السجلات والبحث عنها وتنظيمها بسهولة.'
+          }}
+        </p>
+      </div>
 
-  @if (form.controls.code.invalid && form.controls.code.touched) {
-    <small>Code is required and must be 1–4 digits.</small>
-  }
+      <div class="header-actions">
+        <button
+          type="button"
+          class="toolbar-button"
+          (click)="toggleTheme()"
+          [attr.aria-label]="
+            theme() === 'light'
+              ? text().darkMode
+              : text().lightMode
+          "
+        >
+          <span class="button-icon">
+            {{ theme() === 'light' ? '☾' : '☀' }}
+          </span>
+          {{
+            theme() === 'light'
+              ? text().darkMode
+              : text().lightMode
+          }}
+        </button>
 
-  @if (form.controls.code.hasError('unique')) {
-    <small>Code must be unique.</small>
-  }
+        <button
+          type="button"
+          class="toolbar-button"
+          (click)="toggleLanguage()"
+        >
+          <span class="button-icon">文</span>
+          {{
+            language() === 'en'
+              ? text().arabic
+              : text().english
+          }}
+        </button>
+      </div>
+    </div>
+  </header>
 
-  <input formControlName="arabicName" placeholder="Arabic name" />
+  <main class="content">
+    @if (errorMessage) {
+      <div class="alert error-alert">
+        <span>{{ errorMessage }}</span>
+      </div>
+    }
 
-  @if (form.controls.arabicName.invalid && form.controls.arabicName.touched) {
-    <small>Arabic name must contain Arabic characters only.</small>
-  }
+    @if (deleteErrorMessage) {
+      <div class="alert error-alert">
+        <span>{{ deleteErrorMessage }}</span>
+      </div>
+    }
 
-  <input formControlName="englishName" placeholder="English name" />
+    <section class="panel form-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">
+            {{ editingId ? 'EDIT' : 'NEW' }}
+          </p>
 
-  @if (form.controls.englishName.invalid && form.controls.englishName.touched) {
-    <small>English name must contain English characters only.</small>
-  }
+          <h2>
+            {{
+              editingId
+                ? text().editRecord
+                : text().addRecord
+            }}
+          </h2>
+        </div>
+      </div>
 
-  <select formControlName="department">
-    <option value="">Select department</option>
-    <option value="HR">HR</option>
-    <option value="Finance">Finance</option>
-    <option value="IT">IT</option>
-    <option value="Legal">Legal</option>
-  </select>
+      <form
+        [formGroup]="form"
+        (ngSubmit)="submit()"
+        class="record-form"
+      >
+        <div class="field">
+          <label for="code">{{ text().code }}</label>
 
-  @if (form.controls.department.invalid && form.controls.department.touched) {
-    <small>Department is required.</small>
-  }
+          <input
+            id="code"
+            formControlName="code"
+            [placeholder]="text().code"
+            autocomplete="off"
+          />
 
-  <input type="date" formControlName="submissionDeadline" />
+          @if (
+            form.controls.code.invalid &&
+            form.controls.code.touched
+          ) {
+            <small class="field-error">
+              {{ text().codeValidation }}
+            </small>
+          }
 
-  @if (
-    form.controls.submissionDeadline.hasError('required') &&
-    form.controls.submissionDeadline.touched
-  ) {
-    <small>Deadline is required.</small>
-  }
+          @if (form.controls.code.hasError('unique')) {
+            <small class="field-error">
+              {{ text().uniqueCode }}
+            </small>
+          }
+        </div>
 
-  @if (form.controls.submissionDeadline.hasError('past')) {
-    <small>Deadline cannot be in the past.</small>
-  }
+        <div class="field">
+          <label for="arabicName">
+            {{ text().arabicName }}
+          </label>
 
-  @if (form.hasError('duplicate')) {
-    <small>This record already exists.</small>
-  }
+          <input
+            id="arabicName"
+            formControlName="arabicName"
+            [placeholder]="text().arabicName"
+            autocomplete="off"
+          />
 
-  @if (errorMessage) {
-    <p>{{ errorMessage }}</p>
-  }
+          @if (
+            form.controls.arabicName.invalid &&
+            form.controls.arabicName.touched
+          ) {
+            <small class="field-error">
+              {{ text().arabicValidation }}
+            </small>
+          }
+        </div>
 
-  <button type="submit" [disabled]="form.invalid">
-    {{ editingId ? 'Save' : 'Add' }}
-  </button>
+        <div class="field">
+          <label for="englishName">
+            {{ text().englishName }}
+          </label>
 
-  @if (editingId) {
-    <button type="button" (click)="cancelEdit()">Cancel</button>
-  }
-</form>
+          <input
+            id="englishName"
+            formControlName="englishName"
+            [placeholder]="text().englishName"
+            autocomplete="off"
+          />
 
-@if (loading()) {
-  <p>Loading...</p>
-} @else if (records().length > 0) {
-  <table>
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Arabic Name</th>
-        <th>English Name</th>
-        <th>Department</th>
-        <th>Deadline</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+          @if (
+            form.controls.englishName.invalid &&
+            form.controls.englishName.touched
+          ) {
+            <small class="field-error">
+              {{ text().englishValidation }}
+            </small>
+          }
+        </div>
 
-    <tbody>
-      @for (record of records(); track record.id) {
-        <tr>
-          <td>{{ record.code }}</td>
-          <td>{{ record.arabicName }}</td>
-          <td>{{ record.englishName }}</td>
-          <td>{{ record.department }}</td>
-          <td>{{ record.submissionDeadline }}</td>
-          <td>
+        <div class="field">
+          <label for="department">
+            {{ text().department }}
+          </label>
+
+          <select
+            id="department"
+            formControlName="department"
+          >
+            <option value="">
+              {{ text().selectDepartment }}
+            </option>
+
+            <option value="HR">{{ text().hr }}</option>
+            <option value="Finance">
+              {{ text().finance }}
+            </option>
+            <option value="IT">{{ text().it }}</option>
+            <option value="Legal">
+              {{ text().legal }}
+            </option>
+          </select>
+
+          @if (
+            form.controls.department.invalid &&
+            form.controls.department.touched
+          ) {
+            <small class="field-error">
+              {{ text().departmentRequired }}
+            </small>
+          }
+        </div>
+
+        <div class="field">
+          <label for="submissionDeadline">
+            {{ text().deadline }}
+          </label>
+
+          <input
+            id="submissionDeadline"
+            type="date"
+            formControlName="submissionDeadline"
+          />
+
+          @if (
+            form.controls.submissionDeadline.hasError('required') &&
+            form.controls.submissionDeadline.touched
+          ) {
+            <small class="field-error">
+              {{ text().deadlineRequired }}
+            </small>
+          }
+
+          @if (
+            form.controls.submissionDeadline.hasError('past')
+          ) {
+            <small class="field-error">
+              {{ text().deadlinePast }}
+            </small>
+          }
+        </div>
+
+        @if (form.hasError('duplicate')) {
+          <div class="form-wide-error">
+            {{ text().duplicateRecord }}
+          </div>
+        }
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="primary-button"
+            [disabled]="form.invalid"
+          >
+            {{ editingId ? text().save : text().add }}
+          </button>
+
+          @if (editingId) {
             <button
               type="button"
-              (click)="startEdit(record)"
+              class="secondary-button"
+              (click)="cancelEdit()"
             >
-              Edit
+              {{ text().cancel }}
+            </button>
+          }
+        </div>
+      </form>
+    </section>
+
+    <section class="panel records-panel">
+      <div class="panel-heading records-heading">
+        <div>
+          <p class="section-kicker">
+            {{ text().title }}
+          </p>
+
+          <h2>
+            {{ totalFilteredRecords() }}
+            {{
+              language() === 'en'
+                ? 'matching records'
+                : 'سجل مطابق'
+            }}
+          </h2>
+        </div>
+      </div>
+
+      <div class="filters">
+        <div class="field">
+          <label for="departmentFilter">
+            {{ text().department }}
+          </label>
+
+          <select
+            id="departmentFilter"
+            [value]="departmentFilter()"
+            (change)="
+              setDepartmentFilter(
+                $any($event.target).value
+              )
+            "
+          >
+            <option value="all">
+              {{ text().allDepartments }}
+            </option>
+
+            <option value="HR">
+              {{ text().hr }}
+            </option>
+
+            <option value="Finance">
+              {{ text().finance }}
+            </option>
+
+            <option value="IT">
+              {{ text().it }}
+            </option>
+
+            <option value="Legal">
+              {{ text().legal }}
+            </option>
+          </select>
+        </div>
+
+        <div class="field search-field">
+          <label for="searchField">
+            {{ text().searchField }}
+          </label>
+
+          <select
+            id="searchField"
+            [value]="searchField()"
+            (change)="
+              setSearchField(
+                $any($event.target).value
+              )
+            "
+          >
+            <option value="all">
+              {{ text().allFields }}
+            </option>
+
+            <option value="code">
+              {{ text().searchCode }}
+            </option>
+
+            <option value="name">
+              {{ text().searchName }}
+            </option>
+
+            <option value="deadline">
+              {{ text().searchDeadline }}
+            </option>
+          </select>
+        </div>
+
+        <div class="field search-input-field">
+          <label for="search">
+            {{ text().search }}
+          </label>
+
+          <div class="search-input-wrapper">
+            <span class="search-icon">⌕</span>
+
+            <input
+              id="search"
+              type="search"
+              [value]="searchTerm()"
+              [placeholder]="
+                language() === 'en'
+                  ? 'Search records...'
+                  : 'ابحث في السجلات...'
+              "
+              (input)="
+                setSearchTerm(
+                  $any($event.target).value
+                )
+              "
+              autocomplete="off"
+            />
+          </div>
+        </div>
+      </div>
+
+      @if (loading()) {
+        <div class="state-container">
+          <div class="spinner"></div>
+          <p>{{ text().loading }}</p>
+        </div>
+      } @else if (paginatedRecords().length > 0) {
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>{{ text().code }}</th>
+                <th>{{ text().arabicName }}</th>
+                <th>{{ text().englishName }}</th>
+                <th>{{ text().department }}</th>
+                <th>{{ text().deadline }}</th>
+                <th>{{ text().actions }}</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (
+                record of paginatedRecords();
+                track record.id
+              ) {
+                <tr>
+                  <td>
+                    <span class="code-badge">
+                      {{ record.code }}
+                    </span>
+                  </td>
+
+                  <td>{{ record.arabicName }}</td>
+
+                  <td>{{ record.englishName }}</td>
+
+                  <td>
+                    <span class="department-badge">
+                      {{ departmentLabel(record.department) }}
+                    </span>
+                  </td>
+
+                  <td>{{ record.submissionDeadline }}</td>
+
+                  <td>
+                    <div class="row-actions">
+                      <button
+                        type="button"
+                        class="table-button edit-button"
+                        (click)="startEdit(record)"
+                      >
+                        {{ text().edit }}
+                      </button>
+
+                      <button
+                        type="button"
+                        class="table-button delete-button"
+                        (click)="openDeleteDialog(record)"
+                      >
+                        {{ text().delete }}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination">
+          <div class="pagination-buttons">
+            <button
+              type="button"
+              class="pagination-button"
+              (click)="goToFirstPage()"
+              [disabled]="currentPage() === 1"
+            >
+              {{ text().first }}
             </button>
 
             <button
               type="button"
-              (click)="openDeleteDialog(record)"
+              class="pagination-button"
+              (click)="goToPreviousPage()"
+              [disabled]="currentPage() === 1"
             >
-              Delete
+              {{ text().previous }}
             </button>
-          </td>
-        </tr>
+
+            @for (
+              page of pageNumbers();
+              track page
+            ) {
+              <button
+                type="button"
+                class="page-number"
+                [class.active]="
+                  currentPage() === page
+                "
+                (click)="goToPage(page)"
+              >
+                {{ page }}
+              </button>
+            }
+
+            <button
+              type="button"
+              class="pagination-button"
+              (click)="goToNextPage()"
+              [disabled]="
+                currentPage() === totalPages()
+              "
+            >
+              {{ text().next }}
+            </button>
+
+            <button
+              type="button"
+              class="pagination-button"
+              (click)="goToLastPage()"
+              [disabled]="
+                currentPage() === totalPages()
+              "
+            >
+              {{ text().last }}
+            </button>
+          </div>
+
+          <div class="pagination-meta">
+            <span>
+              {{ text().page }}
+              {{ currentPage() }}
+              {{ text().of }}
+              {{ totalPages() }}
+            </span>
+
+            <div class="jump-control">
+              <label for="jump-page">
+                {{ text().jumpToPage }}
+              </label>
+
+              <input
+                id="jump-page"
+                type="number"
+                min="1"
+                [max]="totalPages()"
+                [value]="jumpPage"
+                (input)="
+                  jumpPage =
+                    $any($event.target).value
+                "
+              />
+
+              <button
+                type="button"
+                class="secondary-button compact"
+                (click)="jumpToPage()"
+              >
+                {{ text().go }}
+              </button>
+            </div>
+          </div>
+
+          @if (jumpPageError) {
+            <div class="jump-error">
+              {{ jumpPageError }}
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="state-container empty-state">
+          <div class="empty-icon">⌁</div>
+          <h3>{{ text().noRecords }}</h3>
+          <p>
+            {{
+              language() === 'en'
+                ? 'Try changing your search or filter.'
+                : 'جرّب تغيير البحث أو الفلتر.'
+            }}
+          </p>
+        </div>
       }
-    </tbody>
-  </table>
-} @else {
-  <p>No records found.</p>
-}
+    </section>
+  </main>
+</div>
 
 @if (deleteTarget) {
   <div
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="delete-dialog-title"
+    class="dialog-backdrop"
+    (click)="cancelDelete()"
   >
-    <h2 id="delete-dialog-title">Delete Record</h2>
-
-    <p>
-      Are you sure you want to delete
-      <strong>{{ deleteTarget.arabicName }}</strong>
-      ({{ deleteTarget.code }})?
-    </p>
-
-    @if (deleteErrorMessage) {
-      <p>{{ deleteErrorMessage }}</p>
-    }
-
-    <button
-      type="button"
-      (click)="confirmDelete()"
+    <div
+      class="dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="delete-dialog-title"
+      (click)="$event.stopPropagation()"
     >
-      Confirm
-    </button>
+      <div class="dialog-icon">!</div>
 
-    <button
-      type="button"
-      (click)="cancelDelete()"
-    >
-      Cancel
-    </button>
+      <div class="dialog-content">
+        <p class="section-kicker">
+          {{ text().delete }}
+        </p>
+
+        <h2 id="delete-dialog-title">
+          {{ text().deleteRecord }}
+        </h2>
+
+        <p>
+          {{ text().deleteQuestion }}
+        </p>
+
+        <div class="delete-preview">
+          <strong>{{ deleteTarget.arabicName }}</strong>
+          <span>{{ deleteTarget.englishName }}</span>
+          <span>#{{ deleteTarget.code }}</span>
+        </div>
+      </div>
+
+      <div class="dialog-actions">
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="cancelDelete()"
+        >
+          {{ text().cancel }}
+        </button>
+
+        <button
+          type="button"
+          class="danger-button"
+          (click)="confirmDelete()"
+        >
+          {{ text().confirm }}
+        </button>
+      </div>
+    </div>
   </div>
-}
-
-@if (deleteErrorMessage && !deleteTarget) {
-  <p>{{ deleteErrorMessage }}</p>
 }
