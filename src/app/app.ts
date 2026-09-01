@@ -1,17 +1,20 @@
 import {
   Component,
-  computed,
   HostBinding,
+  computed,
   inject,
   signal
 } from '@angular/core';
 import {
-  ReactiveFormsModule,
   FormBuilder,
+  ReactiveFormsModule,
   Validators
 } from '@angular/forms';
 import { Records } from './services/records';
-import { FormRecord, Department } from './models/form-record';
+import {
+  Department,
+  FormRecord
+} from './models/form-record';
 import {
   arabicOnlyValidator,
   englishOnlyValidator,
@@ -25,8 +28,11 @@ type DepartmentFilter = 'all' | Department;
 
 interface Translation {
   title: string;
+  registryManagement: string;
+  manageDescription: string;
   addRecord: string;
   editRecord: string;
+  newRecord: string;
   code: string;
   arabicName: string;
   englishName: string;
@@ -49,7 +55,9 @@ interface Translation {
   go: string;
   page: string;
   of: string;
+  matchingRecords: string;
   noRecords: string;
+  emptyDescription: string;
   loading: string;
   add: string;
   save: string;
@@ -80,13 +88,20 @@ interface Translation {
   finance: string;
   it: string;
   legal: string;
+  editKicker: string;
+  newKicker: string;
+  searchPlaceholder: string;
 }
 
 const translations: Record<Language, Translation> = {
   en: {
     title: 'Registry Records',
+    registryManagement: 'REGISTRY MANAGEMENT',
+    manageDescription:
+      'Manage, search and organize registry records.',
     addRecord: 'Add Record',
     editRecord: 'Edit Record',
+    newRecord: 'New Record',
     code: 'Code',
     arabicName: 'Arabic Name',
     englishName: 'English Name',
@@ -109,7 +124,10 @@ const translations: Record<Language, Translation> = {
     go: 'Go',
     page: 'Page',
     of: 'of',
+    matchingRecords: 'matching records',
     noRecords: 'No records found.',
+    emptyDescription:
+      'Try changing your search or department filter.',
     loading: 'Loading...',
     add: 'Add',
     save: 'Save',
@@ -118,11 +136,15 @@ const translations: Record<Language, Translation> = {
     delete: 'Delete',
     confirm: 'Confirm',
     deleteRecord: 'Delete Record',
-    deleteQuestion: 'Are you sure you want to delete this record?',
-    codeValidation: 'Code is required and must be 1–4 digits.',
+    deleteQuestion:
+      'Are you sure you want to delete this record?',
+    codeValidation:
+      'Code is required and must be 1–4 digits.',
     uniqueCode: 'Code must be unique.',
-    arabicValidation: 'Arabic name must contain Arabic characters only.',
-    englishValidation: 'English name must contain English characters only.',
+    arabicValidation:
+      'Arabic name must contain Arabic characters only.',
+    englishValidation:
+      'English name must contain English characters only.',
     departmentRequired: 'Department is required.',
     deadlineRequired: 'Deadline is required.',
     deadlinePast: 'Deadline cannot be in the past.',
@@ -139,13 +161,20 @@ const translations: Record<Language, Translation> = {
     hr: 'HR',
     finance: 'Finance',
     it: 'IT',
-    legal: 'Legal'
+    legal: 'Legal',
+    editKicker: 'EDIT RECORD',
+    newKicker: 'NEW RECORD',
+    searchPlaceholder: 'Search records...'
   },
 
   ar: {
     title: 'سجلات النظام',
+    registryManagement: 'إدارة السجلات',
+    manageDescription:
+      'إدارة السجلات والبحث عنها وتنظيمها بسهولة.',
     addRecord: 'إضافة سجل',
     editRecord: 'تعديل سجل',
+    newRecord: 'سجل جديد',
     code: 'الرمز',
     arabicName: 'الاسم بالعربية',
     englishName: 'الاسم بالإنجليزية',
@@ -168,7 +197,10 @@ const translations: Record<Language, Translation> = {
     go: 'انتقال',
     page: 'صفحة',
     of: 'من',
+    matchingRecords: 'سجل مطابق',
     noRecords: 'لا توجد سجلات.',
+    emptyDescription:
+      'جرّب تغيير البحث أو فلتر القسم.',
     loading: 'جاري التحميل...',
     add: 'إضافة',
     save: 'حفظ',
@@ -177,11 +209,15 @@ const translations: Record<Language, Translation> = {
     delete: 'حذف',
     confirm: 'تأكيد',
     deleteRecord: 'حذف سجل',
-    deleteQuestion: 'هل أنت متأكد من رغبتك في حذف هذا السجل؟',
-    codeValidation: 'الرمز مطلوب ويجب أن يتكون من 1 إلى 4 أرقام.',
+    deleteQuestion:
+      'هل أنت متأكد من رغبتك في حذف هذا السجل؟',
+    codeValidation:
+      'الرمز مطلوب ويجب أن يتكون من 1 إلى 4 أرقام.',
     uniqueCode: 'يجب أن يكون الرمز فريدًا.',
-    arabicValidation: 'يجب أن يحتوي الاسم العربي على أحرف عربية فقط.',
-    englishValidation: 'يجب أن يحتوي الاسم الإنجليزي على أحرف إنجليزية فقط.',
+    arabicValidation:
+      'يجب أن يحتوي الاسم العربي على أحرف عربية فقط.',
+    englishValidation:
+      'يجب أن يحتوي الاسم الإنجليزي على أحرف إنجليزية فقط.',
     departmentRequired: 'القسم مطلوب.',
     deadlineRequired: 'الموعد النهائي مطلوب.',
     deadlinePast: 'لا يمكن أن يكون الموعد النهائي في الماضي.',
@@ -198,7 +234,10 @@ const translations: Record<Language, Translation> = {
     hr: 'الموارد البشرية',
     finance: 'المالية',
     it: 'تقنية المعلومات',
-    legal: 'الشؤون القانونية'
+    legal: 'الشؤون القانونية',
+    editKicker: 'تعديل السجل',
+    newKicker: 'سجل جديد',
+    searchPlaceholder: 'ابحث في السجلات...'
   }
 };
 
@@ -219,7 +258,9 @@ export class App {
 
   currentPage = signal(1);
 
-  departmentFilter = signal<DepartmentFilter>('all');
+  departmentFilter =
+    signal<DepartmentFilter>('all');
+
   searchField = signal<SearchField>('all');
   searchTerm = signal('');
 
@@ -235,28 +276,16 @@ export class App {
   deleteTarget: FormRecord | null = null;
   deleteErrorMessage = '';
 
-  text = computed(() => translations[this.language()]);
-
-  totalFilteredRecords = computed(() => this.filteredRecords().length);
-
-  totalPages = computed(() =>
-    Math.max(
-      1,
-      Math.ceil(this.totalFilteredRecords() / this.pageSize)
-    )
-  );
-
-  pageNumbers = computed(() =>
-    Array.from(
-      { length: this.totalPages() },
-      (_, index) => index + 1
-    )
+  text = computed(
+    () => translations[this.language()]
   );
 
   filteredRecords = computed(() => {
     const department = this.departmentFilter();
-    const searchField = this.searchField();
-    const search = this.searchTerm().trim().toLowerCase();
+    const field = this.searchField();
+    const search = this.searchTerm()
+      .trim()
+      .toLowerCase();
 
     return this.records().filter(record => {
       const matchesDepartment =
@@ -272,11 +301,16 @@ export class App {
       }
 
       const code = record.code.toLowerCase();
-      const arabicName = record.arabicName.toLowerCase();
-      const englishName = record.englishName.toLowerCase();
-      const deadline = record.submissionDeadline.toLowerCase();
+      const arabicName =
+        record.arabicName.toLowerCase();
+      const englishName =
+        record.englishName.toLowerCase();
+      const deadline =
+        record.submissionDeadline.toLowerCase();
+      const recordDepartment =
+        record.department.toLowerCase();
 
-      switch (searchField) {
+      switch (field) {
         case 'code':
           return code.includes(search);
 
@@ -295,16 +329,38 @@ export class App {
             code.includes(search) ||
             arabicName.includes(search) ||
             englishName.includes(search) ||
-            record.department.toLowerCase().includes(search) ||
+            recordDepartment.includes(search) ||
             deadline.includes(search)
           );
       }
     });
   });
 
+  totalFilteredRecords = computed(
+    () => this.filteredRecords().length
+  );
+
+  totalPages = computed(() =>
+    Math.max(
+      1,
+      Math.ceil(
+        this.totalFilteredRecords() /
+          this.pageSize
+      )
+    )
+  );
+
+  pageNumbers = computed(() =>
+    Array.from(
+      { length: this.totalPages() },
+      (_, index) => index + 1
+    )
+  );
+
   paginatedRecords = computed(() => {
     const start =
-      (this.currentPage() - 1) * this.pageSize;
+      (this.currentPage() - 1) *
+      this.pageSize;
 
     return this.filteredRecords().slice(
       start,
@@ -315,23 +371,39 @@ export class App {
   form = this.fb.nonNullable.group({
     code: [
       '',
-      [Validators.required, Validators.pattern(/^\d{1,4}$/)]
+      [
+        Validators.required,
+        Validators.pattern(/^\d{1,4}$/)
+      ]
     ],
+
     arabicName: [
       '',
-      [Validators.required, arabicOnlyValidator()]
+      [
+        Validators.required,
+        arabicOnlyValidator()
+      ]
     ],
+
     englishName: [
       '',
-      [Validators.required, englishOnlyValidator()]
+      [
+        Validators.required,
+        englishOnlyValidator()
+      ]
     ],
+
     department: [
       '',
       Validators.required
     ],
+
     submissionDeadline: [
       '',
-      [Validators.required, futureDateValidator()]
+      [
+        Validators.required,
+        futureDateValidator()
+      ]
     ]
   });
 
@@ -351,38 +423,67 @@ export class App {
   }
 
   private loadPreferences(): void {
-    const savedTheme = localStorage.getItem('registry-theme');
-    const savedLanguage = localStorage.getItem('registry-language');
+    const savedTheme =
+      localStorage.getItem('registry-theme');
 
-    if (savedTheme === 'light' || savedTheme === 'dark') {
+    const savedLanguage =
+      localStorage.getItem('registry-language');
+
+    if (
+      savedTheme === 'light' ||
+      savedTheme === 'dark'
+    ) {
       this.theme.set(savedTheme);
     }
 
-    if (savedLanguage === 'en' || savedLanguage === 'ar') {
+    if (
+      savedLanguage === 'en' ||
+      savedLanguage === 'ar'
+    ) {
       this.language.set(savedLanguage);
     }
 
+    this.applyDocumentDirection();
+  }
+
+  private applyDocumentDirection(): void {
     document.documentElement.dir =
-      this.language() === 'ar' ? 'rtl' : 'ltr';
+      this.language() === 'ar'
+        ? 'rtl'
+        : 'ltr';
+
+    document.documentElement.lang =
+      this.language();
   }
 
   toggleTheme(): void {
     const nextTheme: Theme =
-      this.theme() === 'light' ? 'dark' : 'light';
+      this.theme() === 'light'
+        ? 'dark'
+        : 'light';
 
     this.theme.set(nextTheme);
-    localStorage.setItem('registry-theme', nextTheme);
+
+    localStorage.setItem(
+      'registry-theme',
+      nextTheme
+    );
   }
 
   toggleLanguage(): void {
     const nextLanguage: Language =
-      this.language() === 'en' ? 'ar' : 'en';
+      this.language() === 'en'
+        ? 'ar'
+        : 'en';
 
     this.language.set(nextLanguage);
-    localStorage.setItem('registry-language', nextLanguage);
 
-    document.documentElement.dir =
-      nextLanguage === 'ar' ? 'rtl' : 'ltr';
+    localStorage.setItem(
+      'registry-language',
+      nextLanguage
+    );
+
+    this.applyDocumentDirection();
   }
 
   private loadRecords(): void {
@@ -394,8 +495,10 @@ export class App {
         this.ensureValidPage();
         this.loading.set(false);
       },
+
       error: () => {
-        this.errorMessage = this.text().failedLoad;
+        this.errorMessage =
+          this.text().failedLoad;
         this.loading.set(false);
       }
     });
@@ -423,7 +526,9 @@ export class App {
   }
 
   setSearchField(value: string): void {
-    this.searchField.set(value as SearchField);
+    this.searchField.set(
+      value as SearchField
+    );
 
     this.currentPage.set(1);
     this.clearJumpPageError();
@@ -471,43 +576,54 @@ export class App {
       return;
     }
 
-    const recordToDelete = this.deleteTarget;
+    const recordToDelete =
+      this.deleteTarget;
 
     this.deleteTarget = null;
     this.deleteErrorMessage = '';
 
     this.records.update(records =>
       records.filter(
-        record => record.id !== recordToDelete.id
+        record =>
+          record.id !== recordToDelete.id
       )
     );
 
     this.ensureValidPage();
 
-    this.recordsService.delete(recordToDelete.id).subscribe({
-      next: () => {
-        this.ensureValidPage();
-      },
+    this.recordsService
+      .delete(recordToDelete.id)
+      .subscribe({
+        next: () => {
+          this.ensureValidPage();
+        },
 
-      error: () => {
-        this.records.update(records => {
-          const alreadyRestored = records.some(
-            record => record.id === recordToDelete.id
-          );
+        error: () => {
+          this.records.update(records => {
+            const alreadyRestored =
+              records.some(
+                record =>
+                  record.id ===
+                  recordToDelete.id
+              );
 
-          if (alreadyRestored) {
-            return records;
-          }
+            if (alreadyRestored) {
+              return records;
+            }
 
-          return [...records, recordToDelete];
-        });
+            return [
+              ...records,
+              recordToDelete
+            ];
+          });
 
-        this.ensureValidPage();
+          this.ensureValidPage();
 
-        this.deleteErrorMessage =
-          `${this.text().failedDelete} ${recordToDelete.arabicName}.`;
-      }
-    });
+          this.deleteErrorMessage =
+            `${this.text().failedDelete} ` +
+            `${recordToDelete.arabicName}.`;
+        }
+      });
   }
 
   submit(): void {
@@ -517,14 +633,18 @@ export class App {
       return;
     }
 
-    const value = this.form.getRawValue();
-    const currentRecords = this.records();
+    const value =
+      this.form.getRawValue();
 
-    const duplicateCode = currentRecords.some(
-      record =>
-        record.code === value.code &&
-        record.id !== this.editingId
-    );
+    const currentRecords =
+      this.records();
+
+    const duplicateCode =
+      currentRecords.some(
+        record =>
+          record.code === value.code &&
+          record.id !== this.editingId
+      );
 
     if (duplicateCode) {
       this.form.controls.code.setErrors({
@@ -534,15 +654,20 @@ export class App {
       return;
     }
 
-    const duplicateRecord = currentRecords.some(
-      record =>
-        record.id !== this.editingId &&
-        record.code === value.code &&
-        record.arabicName === value.arabicName &&
-        record.englishName === value.englishName &&
-        record.department === value.department &&
-        record.submissionDeadline === value.submissionDeadline
-    );
+    const duplicateRecord =
+      currentRecords.some(
+        record =>
+          record.id !== this.editingId &&
+          record.code === value.code &&
+          record.arabicName ===
+            value.arabicName &&
+          record.englishName ===
+            value.englishName &&
+          record.department ===
+            value.department &&
+          record.submissionDeadline ===
+            value.submissionDeadline
+      );
 
     if (duplicateRecord) {
       this.form.setErrors({
@@ -553,9 +678,11 @@ export class App {
     }
 
     if (this.editingId !== null) {
-      const existing = currentRecords.find(
-        record => record.id === this.editingId
-      );
+      const existing =
+        currentRecords.find(
+          record =>
+            record.id === this.editingId
+        );
 
       if (!existing) {
         return;
@@ -578,7 +705,8 @@ export class App {
           next: savedRecord => {
             this.records.update(records =>
               records.map(record =>
-                record.id === savedRecord.id
+                record.id ===
+                savedRecord.id
                   ? savedRecord
                   : record
               )
@@ -606,25 +734,28 @@ export class App {
         value.department as Department,
       submissionDeadline:
         value.submissionDeadline,
-      createdAt: new Date().toISOString()
+      createdAt:
+        new Date().toISOString()
     };
 
-    this.recordsService.create(newRecord).subscribe({
-      next: createdRecord => {
-        this.records.update(records => [
-          ...records,
-          createdRecord
-        ]);
+    this.recordsService
+      .create(newRecord)
+      .subscribe({
+        next: createdRecord => {
+          this.records.update(records => [
+            ...records,
+            createdRecord
+          ]);
 
-        this.ensureValidPage();
-        this.form.reset();
-      },
+          this.ensureValidPage();
+          this.form.reset();
+        },
 
-      error: () => {
-        this.errorMessage =
-          this.text().failedCreate;
-      }
-    });
+        error: () => {
+          this.errorMessage =
+            this.text().failedCreate;
+        }
+      });
   }
 
   goToPage(page: number): void {
@@ -644,19 +775,27 @@ export class App {
   }
 
   goToPreviousPage(): void {
-    this.goToPage(this.currentPage() - 1);
+    this.goToPage(
+      this.currentPage() - 1
+    );
   }
 
   goToNextPage(): void {
-    this.goToPage(this.currentPage() + 1);
+    this.goToPage(
+      this.currentPage() + 1
+    );
   }
 
   goToLastPage(): void {
-    this.goToPage(this.totalPages());
+    this.goToPage(
+      this.totalPages()
+    );
   }
 
   jumpToPage(): void {
-    const page = Number(this.jumpPage);
+    const page = Number(
+      this.jumpPage
+    );
 
     if (
       !Number.isInteger(page) ||
@@ -664,7 +803,10 @@ export class App {
       page > this.totalPages()
     ) {
       this.jumpPageError =
-        `${this.text().invalidPage} 1 ${this.text().of} ${this.totalPages()}.`;
+        `${this.text().invalidPage} ` +
+        `1 ${this.text().of} ` +
+        `${this.totalPages()}.`;
+
       return;
     }
 
@@ -677,7 +819,9 @@ export class App {
     this.jumpPageError = '';
   }
 
-  departmentLabel(department: Department): string {
+  departmentLabel(
+    department: Department
+  ): string {
     switch (department) {
       case 'HR':
         return this.text().hr;
@@ -690,23 +834,6 @@ export class App {
 
       case 'Legal':
         return this.text().legal;
-    }
-  }
-
-  searchFieldLabel(field: SearchField): string {
-    switch (field) {
-      case 'code':
-        return this.text().searchCode;
-
-      case 'name':
-        return this.text().searchName;
-
-      case 'deadline':
-        return this.text().searchDeadline;
-
-      case 'all':
-      default:
-        return this.text().allFields;
     }
   }
 }

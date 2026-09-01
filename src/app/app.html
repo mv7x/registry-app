@@ -1,19 +1,15 @@
 <div class="app-shell">
   <header class="app-header">
     <div class="header-content">
-      <div>
+      <div class="header-copy">
         <p class="eyebrow">
-          {{ language() === 'en' ? 'REGISTRY MANAGEMENT' : 'إدارة السجلات' }}
+          {{ text().registryManagement }}
         </p>
 
         <h1>{{ text().title }}</h1>
 
         <p class="subtitle">
-          {{
-            language() === 'en'
-              ? 'Manage, search and organize registry records.'
-              : 'إدارة السجلات والبحث عنها وتنظيمها بسهولة.'
-          }}
+          {{ text().manageDescription }}
         </p>
       </div>
 
@@ -31,6 +27,7 @@
           <span class="button-icon">
             {{ theme() === 'light' ? '☾' : '☀' }}
           </span>
+
           {{
             theme() === 'light'
               ? text().darkMode
@@ -43,7 +40,10 @@
           class="toolbar-button"
           (click)="toggleLanguage()"
         >
-          <span class="button-icon">文</span>
+          <span class="button-icon">
+            文
+          </span>
+
           {{
             language() === 'en'
               ? text().arabic
@@ -57,13 +57,13 @@
   <main class="content">
     @if (errorMessage) {
       <div class="alert error-alert">
-        <span>{{ errorMessage }}</span>
+        {{ errorMessage }}
       </div>
     }
 
     @if (deleteErrorMessage) {
       <div class="alert error-alert">
-        <span>{{ deleteErrorMessage }}</span>
+        {{ deleteErrorMessage }}
       </div>
     }
 
@@ -71,7 +71,11 @@
       <div class="panel-heading">
         <div>
           <p class="section-kicker">
-            {{ editingId ? 'EDIT' : 'NEW' }}
+            {{
+              editingId
+                ? text().editKicker
+                : text().newKicker
+            }}
           </p>
 
           <h2>
@@ -90,7 +94,9 @@
         class="record-form"
       >
         <div class="field">
-          <label for="code">{{ text().code }}</label>
+          <label for="code">
+            {{ text().code }}
+          </label>
 
           <input
             id="code"
@@ -108,7 +114,9 @@
             </small>
           }
 
-          @if (form.controls.code.hasError('unique')) {
+          @if (
+            form.controls.code.hasError('unique')
+          ) {
             <small class="field-error">
               {{ text().uniqueCode }}
             </small>
@@ -172,11 +180,18 @@
               {{ text().selectDepartment }}
             </option>
 
-            <option value="HR">{{ text().hr }}</option>
+            <option value="HR">
+              {{ text().hr }}
+            </option>
+
             <option value="Finance">
               {{ text().finance }}
             </option>
-            <option value="IT">{{ text().it }}</option>
+
+            <option value="IT">
+              {{ text().it }}
+            </option>
+
             <option value="Legal">
               {{ text().legal }}
             </option>
@@ -204,7 +219,8 @@
           />
 
           @if (
-            form.controls.submissionDeadline.hasError('required') &&
+            form.controls.submissionDeadline
+              .hasError('required') &&
             form.controls.submissionDeadline.touched
           ) {
             <small class="field-error">
@@ -213,7 +229,8 @@
           }
 
           @if (
-            form.controls.submissionDeadline.hasError('past')
+            form.controls.submissionDeadline
+              .hasError('past')
           ) {
             <small class="field-error">
               {{ text().deadlinePast }}
@@ -250,19 +267,15 @@
     </section>
 
     <section class="panel records-panel">
-      <div class="panel-heading records-heading">
+      <div class="records-top">
         <div>
           <p class="section-kicker">
-            {{ text().title }}
+            {{ text().registryManagement }}
           </p>
 
           <h2>
             {{ totalFilteredRecords() }}
-            {{
-              language() === 'en'
-                ? 'matching records'
-                : 'سجل مطابق'
-            }}
+            {{ text().matchingRecords }}
           </h2>
         </div>
       </div>
@@ -304,7 +317,7 @@
           </select>
         </div>
 
-        <div class="field search-field">
+        <div class="field">
           <label for="searchField">
             {{ text().searchField }}
           </label>
@@ -342,16 +355,16 @@
           </label>
 
           <div class="search-input-wrapper">
-            <span class="search-icon">⌕</span>
+            <span class="search-icon">
+              ⌕
+            </span>
 
             <input
               id="search"
               type="search"
               [value]="searchTerm()"
               [placeholder]="
-                language() === 'en'
-                  ? 'Search records...'
-                  : 'ابحث في السجلات...'
+                text().searchPlaceholder
               "
               (input)="
                 setSearchTerm(
@@ -367,19 +380,32 @@
       @if (loading()) {
         <div class="state-container">
           <div class="spinner"></div>
+
           <p>{{ text().loading }}</p>
         </div>
-      } @else if (paginatedRecords().length > 0) {
+      } @else if (
+        paginatedRecords().length > 0
+      ) {
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>{{ text().code }}</th>
-                <th>{{ text().arabicName }}</th>
-                <th>{{ text().englishName }}</th>
-                <th>{{ text().department }}</th>
-                <th>{{ text().deadline }}</th>
-                <th>{{ text().actions }}</th>
+                <th>
+                  {{ text().arabicName }}
+                </th>
+                <th>
+                  {{ text().englishName }}
+                </th>
+                <th>
+                  {{ text().department }}
+                </th>
+                <th>
+                  {{ text().deadline }}
+                </th>
+                <th>
+                  {{ text().actions }}
+                </th>
               </tr>
             </thead>
 
@@ -395,24 +421,38 @@
                     </span>
                   </td>
 
-                  <td>{{ record.arabicName }}</td>
-
-                  <td>{{ record.englishName }}</td>
+                  <td>
+                    {{ record.arabicName }}
+                  </td>
 
                   <td>
-                    <span class="department-badge">
-                      {{ departmentLabel(record.department) }}
+                    {{ record.englishName }}
+                  </td>
+
+                  <td>
+                    <span
+                      class="department-badge"
+                    >
+                      {{
+                        departmentLabel(
+                          record.department
+                        )
+                      }}
                     </span>
                   </td>
 
-                  <td>{{ record.submissionDeadline }}</td>
+                  <td>
+                    {{ record.submissionDeadline }}
+                  </td>
 
                   <td>
                     <div class="row-actions">
                       <button
                         type="button"
                         class="table-button edit-button"
-                        (click)="startEdit(record)"
+                        (click)="
+                          startEdit(record)
+                        "
                       >
                         {{ text().edit }}
                       </button>
@@ -420,7 +460,9 @@
                       <button
                         type="button"
                         class="table-button delete-button"
-                        (click)="openDeleteDialog(record)"
+                        (click)="
+                          openDeleteDialog(record)
+                        "
                       >
                         {{ text().delete }}
                       </button>
@@ -446,7 +488,9 @@
             <button
               type="button"
               class="pagination-button"
-              (click)="goToPreviousPage()"
+              (click)="
+                goToPreviousPage()
+              "
               [disabled]="currentPage() === 1"
             >
               {{ text().previous }}
@@ -492,7 +536,7 @@
           </div>
 
           <div class="pagination-meta">
-            <span>
+            <span class="page-status">
               {{ text().page }}
               {{ currentPage() }}
               {{ text().of }}
@@ -534,14 +578,16 @@
         </div>
       } @else {
         <div class="state-container empty-state">
-          <div class="empty-icon">⌁</div>
-          <h3>{{ text().noRecords }}</h3>
+          <div class="empty-icon">
+            ⌁
+          </div>
+
+          <h3>
+            {{ text().noRecords }}
+          </h3>
+
           <p>
-            {{
-              language() === 'en'
-                ? 'Try changing your search or filter.'
-                : 'جرّب تغيير البحث أو الفلتر.'
-            }}
+            {{ text().emptyDescription }}
           </p>
         </div>
       }
@@ -561,7 +607,9 @@
       aria-labelledby="delete-dialog-title"
       (click)="$event.stopPropagation()"
     >
-      <div class="dialog-icon">!</div>
+      <div class="dialog-icon">
+        !
+      </div>
 
       <div class="dialog-content">
         <p class="section-kicker">
@@ -577,9 +625,17 @@
         </p>
 
         <div class="delete-preview">
-          <strong>{{ deleteTarget.arabicName }}</strong>
-          <span>{{ deleteTarget.englishName }}</span>
-          <span>#{{ deleteTarget.code }}</span>
+          <strong>
+            {{ deleteTarget.arabicName }}
+          </strong>
+
+          <span>
+            {{ deleteTarget.englishName }}
+          </span>
+
+          <span>
+            #{{ deleteTarget.code }}
+          </span>
         </div>
       </div>
 
