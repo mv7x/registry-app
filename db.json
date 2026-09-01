@@ -2,28 +2,48 @@
   "forms": [
     {
       "id": 1,
-      "name": "Customer Registration",
-      "description": "Register a new customer"
+      "code": "REG-001",
+      "arabicName": "تسجيل العملاء",
+      "englishName": "Customer Registration",
+      "department": "HR",
+      "submissionDeadline": "2026-12-31T23:59:59Z",
+      "createdAt": "2026-09-01T08:00:00Z"
     },
     {
       "id": 2,
-      "name": "Employee Registration",
-      "description": "Register a new employee"
+      "code": "REG-002",
+      "arabicName": "تسجيل الموظفين",
+      "englishName": "Employee Registration",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-30T23:59:59Z",
+      "createdAt": "2026-09-01T09:00:00Z"
     },
     {
       "id": 3,
-      "name": "Product Registration",
-      "description": "Register a new product"
+      "code": "REG-003",
+      "arabicName": "تسجيل المنتجات",
+      "englishName": "Product Registration",
+      "department": "IT",
+      "submissionDeadline": "2026-10-31T23:59:59Z",
+      "createdAt": "2026-09-01T10:00:00Z"
     },
     {
       "id": 4,
-      "name": "Supplier Registration",
-      "description": "Register a new supplier"
+      "code": "REG-004",
+      "arabicName": "تسجيل الموردين",
+      "englishName": "Supplier Registration",
+      "department": "Legal",
+      "submissionDeadline": "2026-09-30T23:59:59Z",
+      "createdAt": "2026-09-01T11:00:00Z"
     },
     {
       "id": 5,
-      "name": "Company Registration",
-      "description": "Register a new company"
+      "code": "REG-005",
+      "arabicName": "تسجيل الشركات",
+      "englishName": "Company Registration",
+      "department": "HR",
+      "submissionDeadline": "2026-12-15T23:59:59Z",
+      "createdAt": "2026-09-01T12:00:00Z"
     }
   ]
 }
