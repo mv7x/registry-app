@@ -67,44 +67,86 @@
   }
 </form>
 
-@if (records | async; as data) {
-  @if (data.length > 0) {
-    <table>
-      <thead>
-        <tr>
-          <th>Code</th>
-          <th>Arabic Name</th>
-          <th>English Name</th>
-          <th>Department</th>
-          <th>Deadline</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        @for (record of data; track record.id) {
-          <tr>
-            <td>{{ record.code }}</td>
-            <td>{{ record.arabicName }}</td>
-            <td>{{ record.englishName }}</td>
-            <td>{{ record.department }}</td>
-            <td>{{ record.submissionDeadline }}</td>
-            <td>
-              <button type="button" (click)="startEdit(record)">
-                Edit
-              </button>
-
-              <button type="button">
-                Delete
-              </button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  } @else {
-    <p>No records found.</p>
-  }
-} @else {
+@if (loading()) {
   <p>Loading...</p>
+} @else if (records().length > 0) {
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Arabic Name</th>
+        <th>English Name</th>
+        <th>Department</th>
+        <th>Deadline</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (record of records(); track record.id) {
+        <tr>
+          <td>{{ record.code }}</td>
+          <td>{{ record.arabicName }}</td>
+          <td>{{ record.englishName }}</td>
+          <td>{{ record.department }}</td>
+          <td>{{ record.submissionDeadline }}</td>
+          <td>
+            <button
+              type="button"
+              (click)="startEdit(record)"
+            >
+              Edit
+            </button>
+
+            <button
+              type="button"
+              (click)="openDeleteDialog(record)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+  <p>No records found.</p>
+}
+
+@if (deleteTarget) {
+  <div
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="delete-dialog-title"
+  >
+    <h2 id="delete-dialog-title">Delete Record</h2>
+
+    <p>
+      Are you sure you want to delete
+      <strong>{{ deleteTarget.arabicName }}</strong>
+      ({{ deleteTarget.code }})?
+    </p>
+
+    @if (deleteErrorMessage) {
+      <p>{{ deleteErrorMessage }}</p>
+    }
+
+    <button
+      type="button"
+      (click)="confirmDelete()"
+    >
+      Confirm
+    </button>
+
+    <button
+      type="button"
+      (click)="cancelDelete()"
+    >
+      Cancel
+    </button>
+  </div>
+}
+
+@if (deleteErrorMessage && !deleteTarget) {
+  <p>{{ deleteErrorMessage }}</p>
 }

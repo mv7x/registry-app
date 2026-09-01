@@ -28,15 +28,6 @@
       "createdAt": "2026-09-01T10:00:00Z"
     },
     {
-      "id": "4",
-      "code": "REG-004",
-      "arabicName": "تسجيل الموردين",
-      "englishName": "Supplier Registration",
-      "department": "Legal",
-      "submissionDeadline": "2026-09-30T23:59:59Z",
-      "createdAt": "2026-09-01T11:00:00Z"
-    },
-    {
       "id": "5",
       "code": "REG-005",
       "arabicName": "تسجيل الشركات",
