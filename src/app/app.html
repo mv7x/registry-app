@@ -2,9 +2,15 @@
   <header class="app-header">
     <div class="header-content">
       <div class="header-copy">
-        <p class="eyebrow">{{ text().registryManagement }}</p>
+        <p class="eyebrow">
+          {{ text().registryManagement }}
+        </p>
+
         <h1>{{ text().title }}</h1>
-        <p class="subtitle">{{ text().manageDescription }}</p>
+
+        <p class="subtitle">
+          {{ text().manageDescription }}
+        </p>
       </div>
 
       <div class="header-actions">
@@ -12,13 +18,21 @@
           type="button"
           class="toolbar-button"
           (click)="toggleTheme()"
-          [attr.aria-label]="theme() === 'light' ? text().darkMode : text().lightMode"
+          [attr.aria-label]="
+            theme() === 'light'
+              ? text().darkMode
+              : text().lightMode
+          "
         >
           <span class="button-icon">
             {{ theme() === 'light' ? '☾' : '☀' }}
           </span>
 
-          {{ theme() === 'light' ? text().darkMode : text().lightMode }}
+          {{
+            theme() === 'light'
+              ? text().darkMode
+              : text().lightMode
+          }}
         </button>
 
         <button
@@ -26,16 +40,22 @@
           class="toolbar-button"
           (click)="toggleLanguage()"
         >
-          <span class="button-icon">文</span>
+          <span class="button-icon">
+            文
+          </span>
 
-          {{ language() === 'en' ? text().arabic : text().english }}
+          {{
+            language() === 'en'
+              ? text().arabic
+              : text().english
+          }}
         </button>
       </div>
     </div>
   </header>
 
   <main class="content">
-    @if (errorMessage) {
+    @if (errorMessage && !editingId) {
       <div class="alert error-alert">
         {{ errorMessage }}
       </div>
@@ -51,11 +71,11 @@
       <div class="panel-heading">
         <div>
           <p class="section-kicker">
-            {{ editingId ? text().editKicker : text().newKicker }}
+            {{ text().newKicker }}
           </p>
 
           <h2>
-            {{ editingId ? text().editRecord : text().addRecord }}
+            {{ text().addRecord }}
           </h2>
         </div>
       </div>
@@ -86,7 +106,9 @@
             </small>
           }
 
-          @if (form.controls.code.hasError('unique')) {
+          @if (
+            form.controls.code.hasError('unique')
+          ) {
             <small class="field-error">
               {{ text().uniqueCode }}
             </small>
@@ -218,18 +240,8 @@
             class="primary-button"
             [disabled]="form.invalid"
           >
-            {{ editingId ? text().save : text().add }}
+            {{ text().add }}
           </button>
-
-          @if (editingId) {
-            <button
-              type="button"
-              class="secondary-button"
-              (click)="cancelEdit()"
-            >
-              {{ text().cancel }}
-            </button>
-          }
         </div>
       </form>
     </section>
@@ -257,7 +269,11 @@
           <select
             id="departmentFilter"
             [value]="departmentFilter()"
-            (change)="setDepartmentFilter($any($event.target).value)"
+            (change)="
+              setDepartmentFilter(
+                $any($event.target).value
+              )
+            "
           >
             <option value="all">
               {{ text().allDepartments }}
@@ -289,7 +305,11 @@
           <select
             id="searchField"
             [value]="searchField()"
-            (change)="setSearchField($any($event.target).value)"
+            (change)="
+              setSearchField(
+                $any($event.target).value
+              )
+            "
           >
             <option value="all">
               {{ text().allFields }}
@@ -315,14 +335,20 @@
           </label>
 
           <div class="search-input-wrapper">
-            <span class="search-icon">⌕</span>
+            <span class="search-icon">
+              ⌕
+            </span>
 
             <input
               id="search"
               type="search"
               [value]="searchTerm()"
               [placeholder]="text().searchPlaceholder"
-              (input)="setSearchTerm($any($event.target).value)"
+              (input)="
+                setSearchTerm(
+                  $any($event.target).value
+                )
+              "
               autocomplete="off"
             />
           </div>
@@ -333,32 +359,53 @@
         <div class="state-container">
           <div class="spinner"></div>
 
-          <p>{{ text().loading }}</p>
+          <p>
+            {{ text().loading }}
+          </p>
         </div>
-      } @else if (paginatedRecords().length > 0) {
+      } @else if (
+        paginatedRecords().length > 0
+      ) {
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>#</th>
-                <th>{{ text().code }}</th>
-                <th>{{ text().arabicName }}</th>
-                <th>{{ text().englishName }}</th>
-                <th>{{ text().department }}</th>
-                <th>{{ text().deadline }}</th>
-                <th>{{ text().actions }}</th>
+
+                <th>
+                  {{ text().code }}
+                </th>
+
+                <th>
+                  {{ text().arabicName }}
+                </th>
+
+                <th>
+                  {{ text().englishName }}
+                </th>
+
+                <th>
+                  {{ text().department }}
+                </th>
+
+                <th>
+                  {{ text().deadline }}
+                </th>
+
+                <th>
+                  {{ text().actions }}
+                </th>
               </tr>
             </thead>
 
             <tbody>
               @for (
                 record of paginatedRecords();
-                track record.id;
-                let rowIndex = $index
+                track record.id
               ) {
                 <tr>
                   <td>
-                    {{ (currentPage() - 1) * pageSize + rowIndex + 1 }}
+                    {{ sequenceNumber(record) }}
                   </td>
 
                   <td>
@@ -377,7 +424,11 @@
 
                   <td>
                     <span class="department-badge">
-                      {{ departmentLabel(record.department) }}
+                      {{
+                        departmentLabel(
+                          record.department
+                        )
+                      }}
                     </span>
                   </td>
 
@@ -390,7 +441,9 @@
                       <button
                         type="button"
                         class="table-button edit-button"
-                        (click)="startEdit(record)"
+                        (click)="
+                          startEdit(record)
+                        "
                       >
                         {{ text().edit }}
                       </button>
@@ -398,7 +451,9 @@
                       <button
                         type="button"
                         class="table-button delete-button"
-                        (click)="openDeleteDialog(record)"
+                        (click)="
+                          openDeleteDialog(record)
+                        "
                       >
                         {{ text().delete }}
                       </button>
@@ -424,17 +479,24 @@
             <button
               type="button"
               class="pagination-button"
-              (click)="goToPreviousPage()"
+              (click)="
+                goToPreviousPage()
+              "
               [disabled]="currentPage() === 1"
             >
               {{ text().previous }}
             </button>
 
-            @for (page of pageNumbers(); track page) {
+            @for (
+              page of pageNumbers();
+              track page
+            ) {
               <button
                 type="button"
                 class="page-number"
-                [class.active]="currentPage() === page"
+                [class.active]="
+                  currentPage() === page
+                "
                 (click)="goToPage(page)"
               >
                 {{ page }}
@@ -445,7 +507,9 @@
               type="button"
               class="pagination-button"
               (click)="goToNextPage()"
-              [disabled]="currentPage() === totalPages()"
+              [disabled]="
+                currentPage() === totalPages()
+              "
             >
               {{ text().next }}
             </button>
@@ -454,7 +518,9 @@
               type="button"
               class="pagination-button"
               (click)="goToLastPage()"
-              [disabled]="currentPage() === totalPages()"
+              [disabled]="
+                currentPage() === totalPages()
+              "
             >
               {{ text().last }}
             </button>
@@ -479,7 +545,10 @@
                 min="1"
                 [max]="totalPages()"
                 [value]="jumpPage"
-                (input)="jumpPage = $any($event.target).value"
+                (input)="
+                  jumpPage =
+                    $any($event.target).value
+                "
               />
 
               <button
@@ -516,6 +585,211 @@
     </section>
   </main>
 </div>
+
+@if (editingId) {
+  <div
+    class="dialog-backdrop"
+    (click)="cancelEdit()"
+  >
+    <div
+      class="dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="edit-dialog-title"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="dialog-content">
+        <p class="section-kicker">
+          {{ text().editKicker }}
+        </p>
+
+        <h2 id="edit-dialog-title">
+          {{ text().editRecord }}
+        </h2>
+
+        <form
+          [formGroup]="editForm"
+          (ngSubmit)="saveEdit()"
+          class="record-form"
+          style="grid-template-columns: 1fr;"
+        >
+          <div class="field">
+            <label for="edit-code">
+              {{ text().code }}
+            </label>
+
+            <input
+              id="edit-code"
+              formControlName="code"
+              [placeholder]="text().code"
+              autocomplete="off"
+            />
+
+            @if (
+              editForm.controls.code.invalid &&
+              editForm.controls.code.touched
+            ) {
+              <small class="field-error">
+                {{ text().codeValidation }}
+              </small>
+            }
+
+            @if (
+              editForm.controls.code.hasError('unique')
+            ) {
+              <small class="field-error">
+                {{ text().uniqueCode }}
+              </small>
+            }
+          </div>
+
+          <div class="field">
+            <label for="edit-arabicName">
+              {{ text().arabicName }}
+            </label>
+
+            <input
+              id="edit-arabicName"
+              formControlName="arabicName"
+              [placeholder]="text().arabicName"
+              autocomplete="off"
+            />
+
+            @if (
+              editForm.controls.arabicName.invalid &&
+              editForm.controls.arabicName.touched
+            ) {
+              <small class="field-error">
+                {{ text().arabicValidation }}
+              </small>
+            }
+          </div>
+
+          <div class="field">
+            <label for="edit-englishName">
+              {{ text().englishName }}
+            </label>
+
+            <input
+              id="edit-englishName"
+              formControlName="englishName"
+              [placeholder]="text().englishName"
+              autocomplete="off"
+            />
+
+            @if (
+              editForm.controls.englishName.invalid &&
+              editForm.controls.englishName.touched
+            ) {
+              <small class="field-error">
+                {{ text().englishValidation }}
+              </small>
+            }
+          </div>
+
+          <div class="field">
+            <label for="edit-department">
+              {{ text().department }}
+            </label>
+
+            <select
+              id="edit-department"
+              formControlName="department"
+            >
+              <option value="">
+                {{ text().selectDepartment }}
+              </option>
+
+              <option value="HR">
+                {{ text().hr }}
+              </option>
+
+              <option value="Finance">
+                {{ text().finance }}
+              </option>
+
+              <option value="IT">
+                {{ text().it }}
+              </option>
+
+              <option value="Legal">
+                {{ text().legal }}
+              </option>
+            </select>
+
+            @if (
+              editForm.controls.department.invalid &&
+              editForm.controls.department.touched
+            ) {
+              <small class="field-error">
+                {{ text().departmentRequired }}
+              </small>
+            }
+          </div>
+
+          <div class="field">
+            <label for="edit-submissionDeadline">
+              {{ text().deadline }}
+            </label>
+
+            <input
+              id="edit-submissionDeadline"
+              type="date"
+              formControlName="submissionDeadline"
+            />
+
+            @if (
+              editForm.controls.submissionDeadline.hasError('required') &&
+              editForm.controls.submissionDeadline.touched
+            ) {
+              <small class="field-error">
+                {{ text().deadlineRequired }}
+              </small>
+            }
+
+            @if (
+              editForm.controls.submissionDeadline.hasError('past')
+            ) {
+              <small class="field-error">
+                {{ text().deadlinePast }}
+              </small>
+            }
+          </div>
+
+          @if (editForm.hasError('duplicate')) {
+            <div class="form-wide-error">
+              {{ text().duplicateRecord }}
+            </div>
+          }
+
+          @if (errorMessage) {
+            <div class="alert error-alert">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <div class="dialog-actions">
+            <button
+              type="button"
+              class="secondary-button"
+              (click)="cancelEdit()"
+            >
+              {{ text().cancel }}
+            </button>
+
+            <button
+              type="submit"
+              class="primary-button"
+              [disabled]="editForm.invalid"
+            >
+              {{ text().save }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
 
 @if (deleteTarget) {
   <div
