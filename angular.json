@@ -19,6 +19,11 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
+            "optimization": {
+              "fonts": {
+                "inline": false
+              }
+            },
             "assets": [
               {
                 "glob": "**/*",
@@ -33,12 +38,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "500kb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "16kB",
+                  "maximumError": "16kB"
                 }
               ],
               "outputHashing": "all"

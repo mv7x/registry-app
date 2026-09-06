@@ -2,48 +2,903 @@
   "forms": [
     {
       "id": "1",
-      "code": "REG-001",
-      "arabicName": "تسجيل العملاء",
-      "englishName": "Customer Registration",
+      "code": "1001",
+      "arabicName": "طلب توظيف أخصائي موارد بشرية",
+      "englishName": "HR Specialist Recruitment",
       "department": "HR",
-      "submissionDeadline": "2026-12-31T23:59:59Z",
-      "createdAt": "2026-09-01T08:00:00Z"
+      "submissionDeadline": "2026-10-07",
+      "createdAt": "2026-08-01T09:00:00Z"
     },
     {
       "id": "2",
-      "code": "REG-002",
-      "arabicName": "تسجيل الموظفين",
-      "englishName": "Employee Registration",
-      "department": "Finance",
-      "submissionDeadline": "2026-11-30T23:59:59Z",
-      "createdAt": "2026-09-01T09:00:00Z"
+      "code": "1002",
+      "arabicName": "ملف موظف جديد",
+      "englishName": "New Employee Profile",
+      "department": "HR",
+      "submissionDeadline": "2026-10-08",
+      "createdAt": "2026-08-01T10:00:00Z"
     },
     {
       "id": "3",
-      "code": "REG-003",
-      "arabicName": "تسجيل المنتجات",
-      "englishName": "Product Registration",
-      "department": "IT",
-      "submissionDeadline": "2026-10-31T23:59:59Z",
-      "createdAt": "2026-09-01T10:00:00Z"
+      "code": "1003",
+      "arabicName": "خطة الإجازات السنوية",
+      "englishName": "Annual Leave Plan",
+      "department": "HR",
+      "submissionDeadline": "2026-10-09",
+      "createdAt": "2026-08-01T11:00:00Z"
+    },
+    {
+      "id": "4",
+      "code": "1004",
+      "arabicName": "تقييم أداء الموظفين",
+      "englishName": "Employee Performance Review",
+      "department": "HR",
+      "submissionDeadline": "2026-10-10",
+      "createdAt": "2026-08-01T12:00:00Z"
     },
     {
       "id": "5",
-      "code": "REG-005",
-      "arabicName": "تسجيل الشركات",
-      "englishName": "Company Registration",
+      "code": "1005",
+      "arabicName": "تجديد عقد موظف",
+      "englishName": "Employee Contract Renewal",
       "department": "HR",
-      "submissionDeadline": "2026-12-15T23:59:59Z",
-      "createdAt": "2026-09-01T12:00:00Z"
+      "submissionDeadline": "2026-10-11",
+      "createdAt": "2026-08-01T13:00:00Z"
     },
     {
-      "id": "CwVrRQfzY-w",
-      "code": "1234",
-      "arabicName": "بلللللللللل",
-      "englishName": "fffffffffffff",
+      "id": "6",
+      "code": "1006",
+      "arabicName": "مراجعة الحضور والانصراف",
+      "englishName": "Attendance Review",
+      "department": "HR",
+      "submissionDeadline": "2026-10-12",
+      "createdAt": "2026-08-01T14:00:00Z"
+    },
+    {
+      "id": "7",
+      "code": "1007",
+      "arabicName": "طلب تدريب موظفين",
+      "englishName": "Employee Training Request",
+      "department": "HR",
+      "submissionDeadline": "2026-10-13",
+      "createdAt": "2026-08-01T15:00:00Z"
+    },
+    {
+      "id": "8",
+      "code": "1008",
+      "arabicName": "خطة التعاقب الوظيفي",
+      "englishName": "Succession Planning",
+      "department": "HR",
+      "submissionDeadline": "2026-10-14",
+      "createdAt": "2026-08-01T16:00:00Z"
+    },
+    {
+      "id": "9",
+      "code": "1009",
+      "arabicName": "مراجعة هيكل الرواتب",
+      "englishName": "Salary Structure Review",
+      "department": "HR",
+      "submissionDeadline": "2026-10-15",
+      "createdAt": "2026-08-01T17:00:00Z"
+    },
+    {
+      "id": "10",
+      "code": "1010",
+      "arabicName": "استبيان رضا الموظفين",
+      "englishName": "Employee Satisfaction Survey",
+      "department": "HR",
+      "submissionDeadline": "2026-10-16",
+      "createdAt": "2026-08-01T18:00:00Z"
+    },
+    {
+      "id": "11",
+      "code": "1011",
+      "arabicName": "تحديث بيانات الموظفين",
+      "englishName": "Employee Data Update",
+      "department": "HR",
+      "submissionDeadline": "2026-10-17",
+      "createdAt": "2026-08-01T19:00:00Z"
+    },
+    {
+      "id": "12",
+      "code": "1012",
+      "arabicName": "طلب إنشاء وظيفة شاغرة",
+      "englishName": "Job Vacancy Request",
+      "department": "HR",
+      "submissionDeadline": "2026-10-18",
+      "createdAt": "2026-08-01T20:00:00Z"
+    },
+    {
+      "id": "13",
+      "code": "1013",
+      "arabicName": "اعتماد لائحة الموارد البشرية",
+      "englishName": "HR Policy Approval",
+      "department": "HR",
+      "submissionDeadline": "2026-10-19",
+      "createdAt": "2026-08-01T21:00:00Z"
+    },
+    {
+      "id": "14",
+      "code": "1014",
+      "arabicName": "مراجعة أهداف الأداء",
+      "englishName": "Performance Goals Review",
+      "department": "HR",
+      "submissionDeadline": "2026-10-20",
+      "createdAt": "2026-08-01T22:00:00Z"
+    },
+    {
+      "id": "15",
+      "code": "1015",
+      "arabicName": "تقرير القوى العاملة",
+      "englishName": "Workforce Report",
+      "department": "HR",
+      "submissionDeadline": "2026-10-21",
+      "createdAt": "2026-08-01T23:00:00Z"
+    },
+    {
+      "id": "16",
+      "code": "1016",
+      "arabicName": "طلب تغيير المسمى الوظيفي",
+      "englishName": "Job Title Change Request",
+      "department": "HR",
+      "submissionDeadline": "2026-10-22",
+      "createdAt": "2026-08-02T00:00:00Z"
+    },
+    {
+      "id": "17",
+      "code": "1017",
+      "arabicName": "مراجعة فترة التجربة",
+      "englishName": "Probation Review",
+      "department": "HR",
+      "submissionDeadline": "2026-10-23",
+      "createdAt": "2026-08-02T01:00:00Z"
+    },
+    {
+      "id": "18",
+      "code": "1018",
+      "arabicName": "خطة تطوير القيادات",
+      "englishName": "Leadership Development Plan",
+      "department": "HR",
+      "submissionDeadline": "2026-10-24",
+      "createdAt": "2026-08-02T02:00:00Z"
+    },
+    {
+      "id": "19",
+      "code": "1019",
+      "arabicName": "طلب إنهاء خدمة",
+      "englishName": "Employee Separation Request",
+      "department": "HR",
+      "submissionDeadline": "2026-10-25",
+      "createdAt": "2026-08-02T03:00:00Z"
+    },
+    {
+      "id": "20",
+      "code": "1020",
+      "arabicName": "تحديث دليل الموظفين",
+      "englishName": "Employee Handbook Update",
+      "department": "HR",
+      "submissionDeadline": "2026-10-26",
+      "createdAt": "2026-08-02T04:00:00Z"
+    },
+    {
+      "id": "21",
+      "code": "1021",
+      "arabicName": "جدول المقابلات الوظيفية",
+      "englishName": "Interview Schedule",
+      "department": "HR",
+      "submissionDeadline": "2026-10-27",
+      "createdAt": "2026-08-02T05:00:00Z"
+    },
+    {
+      "id": "22",
+      "code": "1022",
+      "arabicName": "تقرير معدل دوران الموظفين",
+      "englishName": "Employee Turnover Report",
+      "department": "HR",
+      "submissionDeadline": "2026-10-28",
+      "createdAt": "2026-08-02T06:00:00Z"
+    },
+    {
+      "id": "23",
+      "code": "1023",
+      "arabicName": "طلب عمل إضافي",
+      "englishName": "Overtime Request",
+      "department": "HR",
+      "submissionDeadline": "2026-10-29",
+      "createdAt": "2026-08-02T07:00:00Z"
+    },
+    {
+      "id": "24",
+      "code": "1024",
+      "arabicName": "مراجعة المزايا الوظيفية",
+      "englishName": "Employee Benefits Review",
+      "department": "HR",
+      "submissionDeadline": "2026-10-30",
+      "createdAt": "2026-08-02T08:00:00Z"
+    },
+    {
+      "id": "25",
+      "code": "1025",
+      "arabicName": "خطة التوظيف الربع سنوية",
+      "englishName": "Quarterly Hiring Plan",
+      "department": "HR",
+      "submissionDeadline": "2026-10-31",
+      "createdAt": "2026-08-02T09:00:00Z"
+    },
+    {
+      "id": "26",
+      "code": "1026",
+      "arabicName": "طلب شراء معدات مكتبية",
+      "englishName": "Office Equipment Purchase Request",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-01",
+      "createdAt": "2026-08-02T10:00:00Z"
+    },
+    {
+      "id": "27",
+      "code": "1027",
+      "arabicName": "فاتورة خدمات تقنية",
+      "englishName": "Technology Services Invoice",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-02",
+      "createdAt": "2026-08-02T11:00:00Z"
+    },
+    {
+      "id": "28",
+      "code": "1028",
+      "arabicName": "تسوية حساب مورد",
+      "englishName": "Supplier Account Reconciliation",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-03",
+      "createdAt": "2026-08-02T12:00:00Z"
+    },
+    {
+      "id": "29",
+      "code": "1029",
+      "arabicName": "تقرير المصروفات الشهرية",
+      "englishName": "Monthly Expense Report",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-04",
+      "createdAt": "2026-08-02T13:00:00Z"
+    },
+    {
+      "id": "30",
+      "code": "1030",
+      "arabicName": "طلب سلفة تشغيلية",
+      "englishName": "Operational Advance Request",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-05",
+      "createdAt": "2026-08-02T14:00:00Z"
+    },
+    {
+      "id": "31",
+      "code": "1031",
+      "arabicName": "أمر شراء أجهزة حاسب",
+      "englishName": "Computer Equipment Purchase Order",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-06",
+      "createdAt": "2026-08-02T15:00:00Z"
+    },
+    {
+      "id": "32",
+      "code": "1032",
+      "arabicName": "مراجعة ميزانية القسم",
+      "englishName": "Department Budget Review",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-07",
+      "createdAt": "2026-08-02T16:00:00Z"
+    },
+    {
+      "id": "33",
+      "code": "1033",
+      "arabicName": "تسوية عهدة موظف",
+      "englishName": "Employee Custody Reconciliation",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-08",
+      "createdAt": "2026-08-02T17:00:00Z"
+    },
+    {
+      "id": "34",
+      "code": "1034",
+      "arabicName": "مطابقة كشف البنك",
+      "englishName": "Bank Statement Reconciliation",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-09",
+      "createdAt": "2026-08-02T18:00:00Z"
+    },
+    {
+      "id": "35",
+      "code": "1035",
+      "arabicName": "طلب صرف مكافأة",
+      "englishName": "Bonus Payment Request",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-10",
+      "createdAt": "2026-08-02T19:00:00Z"
+    },
+    {
+      "id": "36",
+      "code": "1036",
+      "arabicName": "تقرير التدفق النقدي",
+      "englishName": "Cash Flow Report",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-11",
+      "createdAt": "2026-08-02T20:00:00Z"
+    },
+    {
+      "id": "37",
+      "code": "1037",
+      "arabicName": "اعتماد فاتورة مورد",
+      "englishName": "Supplier Invoice Approval",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-12",
+      "createdAt": "2026-08-02T21:00:00Z"
+    },
+    {
+      "id": "38",
+      "code": "1038",
+      "arabicName": "مراجعة حسابات العملاء",
+      "englishName": "Customer Accounts Review",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-13",
+      "createdAt": "2026-08-02T22:00:00Z"
+    },
+    {
+      "id": "39",
+      "code": "1039",
+      "arabicName": "خطة الميزانية السنوية",
+      "englishName": "Annual Budget Plan",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-14",
+      "createdAt": "2026-08-02T23:00:00Z"
+    },
+    {
+      "id": "40",
+      "code": "1040",
+      "arabicName": "تقرير الالتزامات المالية",
+      "englishName": "Financial Liabilities Report",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-15",
+      "createdAt": "2026-08-03T00:00:00Z"
+    },
+    {
+      "id": "41",
+      "code": "1041",
+      "arabicName": "طلب استرداد مصروف",
+      "englishName": "Expense Reimbursement Request",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-16",
+      "createdAt": "2026-08-03T01:00:00Z"
+    },
+    {
+      "id": "42",
+      "code": "1042",
+      "arabicName": "تحديث بيانات الموردين",
+      "englishName": "Supplier Data Update",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-17",
+      "createdAt": "2026-08-03T02:00:00Z"
+    },
+    {
+      "id": "43",
+      "code": "1043",
+      "arabicName": "مراجعة مخصصات المصروفات",
+      "englishName": "Expense Allocation Review",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-18",
+      "createdAt": "2026-08-03T03:00:00Z"
+    },
+    {
+      "id": "44",
+      "code": "1044",
+      "arabicName": "تقرير الإيرادات الشهرية",
+      "englishName": "Monthly Revenue Report",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-19",
+      "createdAt": "2026-08-03T04:00:00Z"
+    },
+    {
+      "id": "45",
+      "code": "1045",
+      "arabicName": "طلب تحويل مالي",
+      "englishName": "Funds Transfer Request",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-20",
+      "createdAt": "2026-08-03T05:00:00Z"
+    },
+    {
+      "id": "46",
+      "code": "1046",
+      "arabicName": "مطابقة أوامر الشراء",
+      "englishName": "Purchase Order Reconciliation",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-21",
+      "createdAt": "2026-08-03T06:00:00Z"
+    },
+    {
+      "id": "47",
+      "code": "1047",
+      "arabicName": "مراجعة تكلفة المشاريع",
+      "englishName": "Project Cost Review",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-22",
+      "createdAt": "2026-08-03T07:00:00Z"
+    },
+    {
+      "id": "48",
+      "code": "1048",
+      "arabicName": "تقرير أعمار الذمم المدينة",
+      "englishName": "Accounts Receivable Aging Report",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-23",
+      "createdAt": "2026-08-03T08:00:00Z"
+    },
+    {
+      "id": "49",
+      "code": "1049",
+      "arabicName": "تقرير أعمار الذمم الدائنة",
+      "englishName": "Accounts Payable Aging Report",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-24",
+      "createdAt": "2026-08-03T09:00:00Z"
+    },
+    {
+      "id": "50",
+      "code": "1050",
+      "arabicName": "توقع الميزانية للربع القادم",
+      "englishName": "Next Quarter Budget Forecast",
+      "department": "Finance",
+      "submissionDeadline": "2026-11-25",
+      "createdAt": "2026-08-03T10:00:00Z"
+    },
+    {
+      "id": "51",
+      "code": "1051",
+      "arabicName": "طلب إنشاء حساب مستخدم",
+      "englishName": "User Account Creation Request",
+      "department": "IT",
+      "submissionDeadline": "2026-11-26",
+      "createdAt": "2026-08-03T11:00:00Z"
+    },
+    {
+      "id": "52",
+      "code": "1052",
+      "arabicName": "جرد أجهزة الشبكة",
+      "englishName": "Network Equipment Inventory",
+      "department": "IT",
+      "submissionDeadline": "2026-11-27",
+      "createdAt": "2026-08-03T12:00:00Z"
+    },
+    {
+      "id": "53",
+      "code": "1053",
+      "arabicName": "طلب صلاحية نظام",
+      "englishName": "System Access Request",
+      "department": "IT",
+      "submissionDeadline": "2026-11-28",
+      "createdAt": "2026-08-03T13:00:00Z"
+    },
+    {
+      "id": "54",
+      "code": "1054",
+      "arabicName": "خطة النسخ الاحتياطي",
+      "englishName": "Backup Plan",
+      "department": "IT",
+      "submissionDeadline": "2026-11-29",
+      "createdAt": "2026-08-03T14:00:00Z"
+    },
+    {
+      "id": "55",
+      "code": "1055",
+      "arabicName": "طلب صيانة جهاز",
+      "englishName": "Device Maintenance Request",
+      "department": "IT",
+      "submissionDeadline": "2026-11-30",
+      "createdAt": "2026-08-03T15:00:00Z"
+    },
+    {
+      "id": "56",
+      "code": "1056",
+      "arabicName": "مراجعة تراخيص البرامج",
+      "englishName": "Software License Review",
+      "department": "IT",
+      "submissionDeadline": "2026-12-01",
+      "createdAt": "2026-08-03T16:00:00Z"
+    },
+    {
+      "id": "57",
+      "code": "1057",
+      "arabicName": "تقرير حالة الخوادم",
+      "englishName": "Server Status Report",
+      "department": "IT",
+      "submissionDeadline": "2026-12-02",
+      "createdAt": "2026-08-03T17:00:00Z"
+    },
+    {
+      "id": "58",
+      "code": "1058",
+      "arabicName": "تحديث إعدادات الشبكة",
+      "englishName": "Network Configuration Update",
+      "department": "IT",
+      "submissionDeadline": "2026-12-03",
+      "createdAt": "2026-08-03T18:00:00Z"
+    },
+    {
+      "id": "59",
+      "code": "1059",
+      "arabicName": "طلب استبدال حاسب",
+      "englishName": "Computer Replacement Request",
+      "department": "IT",
+      "submissionDeadline": "2026-12-04",
+      "createdAt": "2026-08-03T19:00:00Z"
+    },
+    {
+      "id": "60",
+      "code": "1060",
+      "arabicName": "مراجعة صلاحيات الموظفين",
+      "englishName": "Employee Access Review",
+      "department": "IT",
+      "submissionDeadline": "2026-12-05",
+      "createdAt": "2026-08-03T20:00:00Z"
+    },
+    {
+      "id": "61",
+      "code": "1061",
+      "arabicName": "اختبار خطة التعافي من الكوارث",
+      "englishName": "Disaster Recovery Test",
+      "department": "IT",
+      "submissionDeadline": "2026-12-06",
+      "createdAt": "2026-08-03T21:00:00Z"
+    },
+    {
+      "id": "62",
+      "code": "1062",
+      "arabicName": "تقرير الحوادث التقنية",
+      "englishName": "IT Incident Report",
+      "department": "IT",
+      "submissionDeadline": "2026-12-07",
+      "createdAt": "2026-08-03T22:00:00Z"
+    },
+    {
+      "id": "63",
+      "code": "1063",
+      "arabicName": "طلب تثبيت برنامج",
+      "englishName": "Software Installation Request",
+      "department": "IT",
+      "submissionDeadline": "2026-12-08",
+      "createdAt": "2026-08-03T23:00:00Z"
+    },
+    {
+      "id": "64",
+      "code": "1064",
+      "arabicName": "مراجعة أمن البريد الإلكتروني",
+      "englishName": "Email Security Review",
+      "department": "IT",
+      "submissionDeadline": "2026-12-09",
+      "createdAt": "2026-08-04T00:00:00Z"
+    },
+    {
+      "id": "65",
+      "code": "1065",
+      "arabicName": "خطة تحديث الأنظمة",
+      "englishName": "Systems Upgrade Plan",
+      "department": "IT",
+      "submissionDeadline": "2026-12-10",
+      "createdAt": "2026-08-04T01:00:00Z"
+    },
+    {
+      "id": "66",
+      "code": "1066",
+      "arabicName": "طلب اتصال بالشبكة الافتراضية",
+      "englishName": "VPN Access Request",
+      "department": "IT",
+      "submissionDeadline": "2026-12-11",
+      "createdAt": "2026-08-04T02:00:00Z"
+    },
+    {
+      "id": "67",
+      "code": "1067",
+      "arabicName": "تقرير استخدام التخزين",
+      "englishName": "Storage Usage Report",
+      "department": "IT",
+      "submissionDeadline": "2026-12-12",
+      "createdAt": "2026-08-04T03:00:00Z"
+    },
+    {
+      "id": "68",
+      "code": "1068",
+      "arabicName": "مراجعة سجلات الدخول",
+      "englishName": "Login Audit Review",
+      "department": "IT",
+      "submissionDeadline": "2026-12-13",
+      "createdAt": "2026-08-04T04:00:00Z"
+    },
+    {
+      "id": "69",
+      "code": "1069",
+      "arabicName": "طلب إضافة طابعة",
+      "englishName": "Printer Addition Request",
+      "department": "IT",
+      "submissionDeadline": "2026-12-14",
+      "createdAt": "2026-08-04T05:00:00Z"
+    },
+    {
+      "id": "70",
+      "code": "1070",
+      "arabicName": "تحديث قائمة الأصول التقنية",
+      "englishName": "IT Asset Register Update",
+      "department": "IT",
+      "submissionDeadline": "2026-12-15",
+      "createdAt": "2026-08-04T06:00:00Z"
+    },
+    {
+      "id": "71",
+      "code": "1071",
+      "arabicName": "اختبار قاعدة البيانات",
+      "englishName": "Database Test",
+      "department": "IT",
+      "submissionDeadline": "2026-12-16",
+      "createdAt": "2026-08-04T07:00:00Z"
+    },
+    {
+      "id": "72",
+      "code": "1072",
+      "arabicName": "طلب تفعيل المصادقة متعددة العوامل",
+      "englishName": "Multi-Factor Authentication Request",
+      "department": "IT",
+      "submissionDeadline": "2026-12-17",
+      "createdAt": "2026-08-04T08:00:00Z"
+    },
+    {
+      "id": "73",
+      "code": "1073",
+      "arabicName": "مراجعة أداء التطبيقات",
+      "englishName": "Application Performance Review",
+      "department": "IT",
+      "submissionDeadline": "2026-12-18",
+      "createdAt": "2026-08-04T09:00:00Z"
+    },
+    {
+      "id": "74",
+      "code": "1074",
+      "arabicName": "خطة صيانة الخوادم",
+      "englishName": "Server Maintenance Plan",
+      "department": "IT",
+      "submissionDeadline": "2026-12-19",
+      "createdAt": "2026-08-04T10:00:00Z"
+    },
+    {
+      "id": "75",
+      "code": "1075",
+      "arabicName": "تقرير جاهزية البنية التحتية",
+      "englishName": "Infrastructure Readiness Report",
+      "department": "IT",
+      "submissionDeadline": "2026-12-20",
+      "createdAt": "2026-08-04T11:00:00Z"
+    },
+    {
+      "id": "76",
+      "code": "1076",
+      "arabicName": "مراجعة عقد توريد",
+      "englishName": "Supply Contract Review",
       "department": "Legal",
-      "submissionDeadline": "2026-09-17",
-      "createdAt": "2026-09-01T21:39:24.603Z"
+      "submissionDeadline": "2026-12-21",
+      "createdAt": "2026-08-04T12:00:00Z"
+    },
+    {
+      "id": "77",
+      "code": "1077",
+      "arabicName": "طلب اعتماد اتفاقية شراكة",
+      "englishName": "Partnership Agreement Approval",
+      "department": "Legal",
+      "submissionDeadline": "2026-12-22",
+      "createdAt": "2026-08-04T13:00:00Z"
+    },
+    {
+      "id": "78",
+      "code": "1078",
+      "arabicName": "تسجيل قضية تجارية",
+      "englishName": "Commercial Case Registration",
+      "department": "Legal",
+      "submissionDeadline": "2026-12-23",
+      "createdAt": "2026-08-04T14:00:00Z"
+    },
+    {
+      "id": "79",
+      "code": "1079",
+      "arabicName": "مراجعة سياسة الخصوصية",
+      "englishName": "Privacy Policy Review",
+      "department": "Legal",
+      "submissionDeadline": "2026-12-24",
+      "createdAt": "2026-08-04T15:00:00Z"
+    },
+    {
+      "id": "80",
+      "code": "1080",
+      "arabicName": "تحديث نموذج عدم الإفصاح",
+      "englishName": "NDA Template Update",
+      "department": "Legal",
+      "submissionDeadline": "2026-12-25",
+      "createdAt": "2026-08-04T16:00:00Z"
+    },
+    {
+      "id": "81",
+      "code": "1081",
+      "arabicName": "مراجعة عقد خدمات",
+      "englishName": "Service Contract Review",
+      "department": "Legal",
+      "submissionDeadline": "2026-12-26",
+      "createdAt": "2026-08-04T17:00:00Z"
+    },
+    {
+      "id": "82",
+      "code": "1082",
+      "arabicName": "طلب رأي قانوني",
+      "englishName": "Legal Opinion Request",
+      "department": "Legal",
+      "submissionDeadline": "2026-12-27",
+      "createdAt": "2026-08-04T18:00:00Z"
+    },
+    {
+      "id": "83",
+      "code": "1083",
+      "arabicName": "تحديث السجل التعاقدي",
+      "englishName": "Contract Register Update",
+      "department": "Legal",
+      "submissionDeadline": "2026-12-28",
+      "createdAt": "2026-08-04T19:00:00Z"
+    },
+    {
+      "id": "84",
+      "code": "1084",
+      "arabicName": "مراجعة شروط الاستخدام",
+      "englishName": "Terms of Use Review",
+      "department": "Legal",
+      "submissionDeadline": "2026-12-29",
+      "createdAt": "2026-08-04T20:00:00Z"
+    },
+    {
+      "id": "85",
+      "code": "1085",
+      "arabicName": "طلب تمديد عقد",
+      "englishName": "Contract Extension Request",
+      "department": "Legal",
+      "submissionDeadline": "2026-12-30",
+      "createdAt": "2026-08-04T21:00:00Z"
+    },
+    {
+      "id": "86",
+      "code": "1086",
+      "arabicName": "تقرير الالتزام القانوني",
+      "englishName": "Legal Compliance Report",
+      "department": "Legal",
+      "submissionDeadline": "2026-12-31",
+      "createdAt": "2026-08-04T22:00:00Z"
+    },
+    {
+      "id": "87",
+      "code": "1087",
+      "arabicName": "مراجعة نزاع مورد",
+      "englishName": "Supplier Dispute Review",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-01",
+      "createdAt": "2026-08-04T23:00:00Z"
+    },
+    {
+      "id": "88",
+      "code": "1088",
+      "arabicName": "اعتماد خطاب رسمي",
+      "englishName": "Official Letter Approval",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-02",
+      "createdAt": "2026-08-05T00:00:00Z"
+    },
+    {
+      "id": "89",
+      "code": "1089",
+      "arabicName": "مراجعة اتفاقية سرية",
+      "englishName": "Confidentiality Agreement Review",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-03",
+      "createdAt": "2026-08-05T01:00:00Z"
+    },
+    {
+      "id": "90",
+      "code": "1090",
+      "arabicName": "طلب تجديد ترخيص",
+      "englishName": "License Renewal Request",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-04",
+      "createdAt": "2026-08-05T02:00:00Z"
+    },
+    {
+      "id": "91",
+      "code": "1091",
+      "arabicName": "مراجعة بنود المخاطر",
+      "englishName": "Risk Clause Review",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-05",
+      "createdAt": "2026-08-05T03:00:00Z"
+    },
+    {
+      "id": "92",
+      "code": "1092",
+      "arabicName": "تسجيل علامة تجارية",
+      "englishName": "Trademark Registration",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-06",
+      "createdAt": "2026-08-05T04:00:00Z"
+    },
+    {
+      "id": "93",
+      "code": "1093",
+      "arabicName": "مراجعة محضر اجتماع",
+      "englishName": "Meeting Minutes Legal Review",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-07",
+      "createdAt": "2026-08-05T05:00:00Z"
+    },
+    {
+      "id": "94",
+      "code": "1094",
+      "arabicName": "طلب تعديل اتفاقية",
+      "englishName": "Agreement Amendment Request",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-08",
+      "createdAt": "2026-08-05T06:00:00Z"
+    },
+    {
+      "id": "95",
+      "code": "1095",
+      "arabicName": "خطة متابعة القضايا",
+      "englishName": "Case Follow-Up Plan",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-09",
+      "createdAt": "2026-08-05T07:00:00Z"
+    },
+    {
+      "id": "96",
+      "code": "1096",
+      "arabicName": "مراجعة عقد عمل",
+      "englishName": "Employment Contract Review",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-10",
+      "createdAt": "2026-08-05T08:00:00Z"
+    },
+    {
+      "id": "97",
+      "code": "1097",
+      "arabicName": "تحديث السياسات الداخلية",
+      "englishName": "Internal Policies Update",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-11",
+      "createdAt": "2026-08-05T09:00:00Z"
+    },
+    {
+      "id": "98",
+      "code": "1098",
+      "arabicName": "طلب توثيق مستند",
+      "englishName": "Document Legalization Request",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-12",
+      "createdAt": "2026-08-05T10:00:00Z"
+    },
+    {
+      "id": "99",
+      "code": "1099",
+      "arabicName": "تقرير العقود المنتهية",
+      "englishName": "Expired Contracts Report",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-13",
+      "createdAt": "2026-08-05T11:00:00Z"
+    },
+    {
+      "id": "100",
+      "code": "1100",
+      "arabicName": "مراجعة الالتزامات التنظيمية",
+      "englishName": "Regulatory Obligations Review",
+      "department": "Legal",
+      "submissionDeadline": "2027-01-14",
+      "createdAt": "2026-08-05T12:00:00Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

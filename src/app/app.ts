@@ -16,9 +16,6 @@ import {
   FormRecord
 } from './models/form-record';
 import {
-  ARABIC_PATTERN,
-  CODE_PATTERN,
-  ENGLISH_PATTERN,
   arabicOnlyValidator,
   englishOnlyValidator,
   futureDateValidator
@@ -35,6 +32,7 @@ interface Translation {
   manageDescription: string;
   addRecord: string;
   editRecord: string;
+  newRecord: string;
   code: string;
   arabicName: string;
   englishName: string;
@@ -103,6 +101,7 @@ const translations: Record<Language, Translation> = {
       'Manage, search and organize registry records.',
     addRecord: 'Add Record',
     editRecord: 'Edit Record',
+    newRecord: 'New Record',
     code: 'Code',
     arabicName: 'Arabic Name',
     englishName: 'English Name',
@@ -175,6 +174,7 @@ const translations: Record<Language, Translation> = {
       'إدارة السجلات والبحث عنها وتنظيمها بسهولة.',
     addRecord: 'إضافة سجل',
     editRecord: 'تعديل سجل',
+    newRecord: 'سجل جديد',
     code: 'الرمز',
     arabicName: 'الاسم بالعربية',
     englishName: 'الاسم بالإنجليزية',
@@ -301,13 +301,17 @@ export class App {
       }
 
       const code = record.code.toLowerCase();
+
       const arabicName =
         record.arabicName.toLowerCase();
+
       const englishName =
         record.englishName.toLowerCase();
+
       const deadline =
         record.submissionDeadline.toLowerCase();
-      const departmentName =
+
+      const recordDepartment =
         record.department.toLowerCase();
 
       switch (field) {
@@ -329,7 +333,7 @@ export class App {
             code.includes(search) ||
             arabicName.includes(search) ||
             englishName.includes(search) ||
-            departmentName.includes(search) ||
+            recordDepartment.includes(search) ||
             deadline.includes(search)
           );
       }
@@ -368,44 +372,9 @@ export class App {
     );
   });
 
-  form = this.fb.nonNullable.group({
-    code: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(CODE_PATTERN)
-      ]
-    ],
+  form = this.createForm();
 
-    arabicName: [
-      '',
-      [
-        Validators.required,
-        arabicOnlyValidator()
-      ]
-    ],
-
-    englishName: [
-      '',
-      [
-        Validators.required,
-        englishOnlyValidator()
-      ]
-    ],
-
-    department: [
-      '',
-      Validators.required
-    ],
-
-    submissionDeadline: [
-      '',
-      [
-        Validators.required,
-        futureDateValidator()
-      ]
-    ]
-  });
+  editForm = this.createForm();
 
   @HostBinding('class.dark-theme')
   get darkThemeClass(): boolean {
@@ -420,6 +389,47 @@ export class App {
   constructor() {
     this.loadPreferences();
     this.loadRecords();
+  }
+
+  private createForm() {
+    return this.fb.nonNullable.group({
+      code: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^\d{1,4}$/)
+        ]
+      ],
+
+      arabicName: [
+        '',
+        [
+          Validators.required,
+          arabicOnlyValidator()
+        ]
+      ],
+
+      englishName: [
+        '',
+        [
+          Validators.required,
+          englishOnlyValidator()
+        ]
+      ],
+
+      department: [
+        '',
+        Validators.required
+      ],
+
+      submissionDeadline: [
+        '',
+        [
+          Validators.required,
+          futureDateValidator()
+        ]
+      ]
+    });
   }
 
   private loadPreferences(): void {
@@ -499,6 +509,7 @@ export class App {
       error: () => {
         this.errorMessage =
           this.text().failedLoad;
+
         this.loading.set(false);
       }
     });
@@ -545,7 +556,7 @@ export class App {
     this.editingId = record.id;
     this.errorMessage = '';
 
-    this.form.setValue({
+    this.editForm.setValue({
       code: record.code,
       arabicName: record.arabicName,
       englishName: record.englishName,
@@ -554,24 +565,16 @@ export class App {
         record.submissionDeadline.slice(0, 10)
     });
 
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
-
-    this.form.controls.code.updateValueAndValidity();
-    this.form.controls.arabicName.updateValueAndValidity();
-    this.form.controls.englishName.updateValueAndValidity();
-    this.form.controls.department.updateValueAndValidity();
-    this.form.controls.submissionDeadline.updateValueAndValidity();
-
-    this.form.setErrors(null);
+    this.editForm.markAsPristine();
+    this.editForm.markAsUntouched();
+    this.editForm.setErrors(null);
   }
 
   cancelEdit(): void {
     this.editingId = null;
     this.errorMessage = '';
-
-    this.form.reset();
-    this.form.setErrors(null);
+    this.editForm.reset();
+    this.editForm.setErrors(null);
   }
 
   openDeleteDialog(record: FormRecord): void {
@@ -639,92 +642,10 @@ export class App {
       });
   }
 
-  allowOnlyNumbers(event: KeyboardEvent): void {
-    if (
-      event.ctrlKey ||
-      event.metaKey
-    ) {
-      return;
-    }
-
-    const allowedKeys = [
-      'Backspace',
-      'Delete',
-      'Tab',
-      'ArrowLeft',
-      'ArrowRight',
-      'Home',
-      'End'
-    ];
-
-    if (allowedKeys.includes(event.key)) {
-      return;
-    }
-
-    if (!/^[0-9]$/.test(event.key)) {
-      event.preventDefault();
-    }
-  }
-
-  sanitizeCode(event: Event): void {
-    const input =
-      event.target as HTMLInputElement;
-
-    const cleaned =
-      input.value.replace(/[^0-9]/g, '');
-
-    if (input.value !== cleaned) {
-      input.value = cleaned;
-    }
-
-    this.form.controls.code.setValue(
-      cleaned
-    );
-  }
-
-  sanitizeArabic(event: Event): void {
-    const input =
-      event.target as HTMLInputElement;
-
-    const cleaned =
-      input.value.replace(
-        /[^\u0621-\u064A\s]/g,
-        ''
-      );
-
-    if (input.value !== cleaned) {
-      input.value = cleaned;
-    }
-
-    this.form.controls.arabicName.setValue(
-      cleaned
-    );
-  }
-
-  sanitizeEnglish(event: Event): void {
-    const input =
-      event.target as HTMLInputElement;
-
-    const cleaned =
-      input.value.replace(
-        /[^A-Za-z\s]/g,
-        ''
-      );
-
-    if (input.value !== cleaned) {
-      input.value = cleaned;
-    }
-
-    this.form.controls.englishName.setValue(
-      cleaned
-    );
-  }
-
   submit(): void {
     this.errorMessage = '';
 
     this.form.markAllAsTouched();
-    this.form.updateValueAndValidity();
 
     if (this.form.invalid) {
       return;
@@ -739,13 +660,11 @@ export class App {
     const duplicateCode =
       currentRecords.some(
         record =>
-          record.code === value.code &&
-          record.id !== this.editingId
+          record.code === value.code
       );
 
     if (duplicateCode) {
       this.form.controls.code.setErrors({
-        ...this.form.controls.code.errors,
         unique: true
       });
 
@@ -755,7 +674,6 @@ export class App {
     const duplicateRecord =
       currentRecords.some(
         record =>
-          record.id !== this.editingId &&
           record.code === value.code &&
           record.arabicName ===
             value.arabicName &&
@@ -769,64 +687,8 @@ export class App {
 
     if (duplicateRecord) {
       this.form.setErrors({
-        ...this.form.errors,
         duplicate: true
       });
-
-      return;
-    }
-
-    if (this.editingId !== null) {
-      const existing =
-        currentRecords.find(
-          record =>
-            record.id ===
-            this.editingId
-        );
-
-      if (!existing) {
-        this.errorMessage =
-          this.text().failedUpdate;
-
-        return;
-      }
-
-      const updated: FormRecord = {
-        ...existing,
-        code: value.code,
-        arabicName: value.arabicName,
-        englishName: value.englishName,
-        department:
-          value.department as Department,
-        submissionDeadline:
-          value.submissionDeadline
-      };
-
-      this.recordsService
-        .update(
-          this.editingId,
-          updated
-        )
-        .subscribe({
-          next: savedRecord => {
-            this.records.update(records =>
-              records.map(record =>
-                record.id ===
-                savedRecord.id
-                  ? savedRecord
-                  : record
-              )
-            );
-
-            this.ensureValidPage();
-            this.cancelEdit();
-          },
-
-          error: () => {
-            this.errorMessage =
-              this.text().failedUpdate;
-          }
-        });
 
       return;
     }
@@ -862,6 +724,141 @@ export class App {
             this.text().failedCreate;
         }
       });
+  }
+
+  saveEdit(): void {
+    this.errorMessage = '';
+
+    this.editForm.markAllAsTouched();
+
+    if (
+      this.editForm.invalid ||
+      this.editingId === null
+    ) {
+      return;
+    }
+
+    const value =
+      this.editForm.getRawValue();
+
+    const currentRecords =
+      this.records();
+
+    const duplicateCode =
+      currentRecords.some(
+        record =>
+          record.code === value.code &&
+          record.id !== this.editingId
+      );
+
+    if (duplicateCode) {
+      this.editForm.controls.code.setErrors({
+        unique: true
+      });
+
+      return;
+    }
+
+    const duplicateRecord =
+      currentRecords.some(
+        record =>
+          record.id !== this.editingId &&
+          record.code === value.code &&
+          record.arabicName ===
+            value.arabicName &&
+          record.englishName ===
+            value.englishName &&
+          record.department ===
+            value.department &&
+          record.submissionDeadline ===
+            value.submissionDeadline
+      );
+
+    if (duplicateRecord) {
+      this.editForm.setErrors({
+        duplicate: true
+      });
+
+      return;
+    }
+
+    const existing =
+      currentRecords.find(
+        record =>
+          record.id === this.editingId
+      );
+
+    if (!existing) {
+      this.errorMessage =
+        this.text().failedUpdate;
+
+      return;
+    }
+
+    const updated: FormRecord = {
+      ...existing,
+      code: value.code,
+      arabicName: value.arabicName,
+      englishName: value.englishName,
+      department:
+        value.department as Department,
+      submissionDeadline:
+        value.submissionDeadline
+    };
+
+    this.recordsService
+      .update(this.editingId, updated)
+      .subscribe({
+        next: savedRecord => {
+          this.records.update(records =>
+            records.map(record =>
+              record.id === savedRecord.id
+                ? savedRecord
+                : record
+            )
+          );
+
+          this.ensureValidPage();
+          this.cancelEdit();
+        },
+
+        error: () => {
+          this.errorMessage =
+            this.text().failedUpdate;
+        }
+      });
+  }
+
+  sequenceNumber(record: FormRecord): number {
+    const orderedRecords =
+      this.records()
+        .map((item, index) => ({
+          item,
+          index
+        }))
+        .sort((a, b) => {
+          const dateDifference =
+            new Date(
+              a.item.createdAt
+            ).getTime() -
+            new Date(
+              b.item.createdAt
+            ).getTime();
+
+          if (dateDifference !== 0) {
+            return dateDifference;
+          }
+
+          return a.index - b.index;
+        });
+
+    const index =
+      orderedRecords.findIndex(
+        entry =>
+          entry.item.id === record.id
+      );
+
+    return index + 1;
   }
 
   goToPage(page: number): void {
