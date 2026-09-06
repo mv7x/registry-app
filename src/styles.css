@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+app-root.dark-theme .app-shell {
+  --bg: #121a1b;
+  --surface: #1e292b;
+  --primary: #2cb6ac;
+}
+
+app-root.dark-theme .app-header {
+  background: #2cb6ac !important;
+  border-bottom-color: #2cb6ac !important;
+}
+
+app-root.dark-theme .app-header .eyebrow,
+app-root.dark-theme .app-header h1,
+app-root.dark-theme .app-header .subtitle {
+  color: #ffffff;
+}
