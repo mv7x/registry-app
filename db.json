@@ -28,22 +28,13 @@
       "createdAt": "2026-09-01T10:00:00Z"
     },
     {
-      "id": "5",
-      "code": "REG-005",
-      "arabicName": "تسجيل الشركات",
-      "englishName": "Company Registration",
-      "department": "HR",
-      "submissionDeadline": "2026-12-15T23:59:59Z",
-      "createdAt": "2026-09-01T12:00:00Z"
-    },
-    {
-      "id": "CwVrRQfzY-w",
+      "id": "NFFqHzi78DM",
       "code": "1234",
-      "arabicName": "بلللللللللل",
-      "englishName": "fffffffffffff",
-      "department": "Legal",
-      "submissionDeadline": "2026-09-17",
-      "createdAt": "2026-09-01T21:39:24.603Z"
+      "arabicName": "يييييي",
+      "englishName": "ddddddddd",
+      "department": "HR",
+      "submissionDeadline": "2026-09-09",
+      "createdAt": "2026-09-02T01:14:04.810Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
