@@ -2,15 +2,9 @@
   <header class="app-header">
     <div class="header-content">
       <div class="header-copy">
-        <p class="eyebrow">
-          {{ text().registryManagement }}
-        </p>
-
+        <p class="eyebrow">{{ text().registryManagement }}</p>
         <h1>{{ text().title }}</h1>
-
-        <p class="subtitle">
-          {{ text().manageDescription }}
-        </p>
+        <p class="subtitle">{{ text().manageDescription }}</p>
       </div>
 
       <div class="header-actions">
@@ -18,21 +12,13 @@
           type="button"
           class="toolbar-button"
           (click)="toggleTheme()"
-          [attr.aria-label]="
-            theme() === 'light'
-              ? text().darkMode
-              : text().lightMode
-          "
+          [attr.aria-label]="theme() === 'light' ? text().darkMode : text().lightMode"
         >
           <span class="button-icon">
             {{ theme() === 'light' ? '☾' : '☀' }}
           </span>
 
-          {{
-            theme() === 'light'
-              ? text().darkMode
-              : text().lightMode
-          }}
+          {{ theme() === 'light' ? text().darkMode : text().lightMode }}
         </button>
 
         <button
@@ -40,15 +26,9 @@
           class="toolbar-button"
           (click)="toggleLanguage()"
         >
-          <span class="button-icon">
-            文
-          </span>
+          <span class="button-icon">文</span>
 
-          {{
-            language() === 'en'
-              ? text().arabic
-              : text().english
-          }}
+          {{ language() === 'en' ? text().arabic : text().english }}
         </button>
       </div>
     </div>
@@ -71,19 +51,11 @@
       <div class="panel-heading">
         <div>
           <p class="section-kicker">
-            {{
-              editingId
-                ? text().editKicker
-                : text().newKicker
-            }}
+            {{ editingId ? text().editKicker : text().newKicker }}
           </p>
 
           <h2>
-            {{
-              editingId
-                ? text().editRecord
-                : text().addRecord
-            }}
+            {{ editingId ? text().editRecord : text().addRecord }}
           </h2>
         </div>
       </div>
@@ -114,9 +86,7 @@
             </small>
           }
 
-          @if (
-            form.controls.code.hasError('unique')
-          ) {
+          @if (form.controls.code.hasError('unique')) {
             <small class="field-error">
               {{ text().uniqueCode }}
             </small>
@@ -219,8 +189,7 @@
           />
 
           @if (
-            form.controls.submissionDeadline
-              .hasError('required') &&
+            form.controls.submissionDeadline.hasError('required') &&
             form.controls.submissionDeadline.touched
           ) {
             <small class="field-error">
@@ -229,8 +198,7 @@
           }
 
           @if (
-            form.controls.submissionDeadline
-              .hasError('past')
+            form.controls.submissionDeadline.hasError('past')
           ) {
             <small class="field-error">
               {{ text().deadlinePast }}
@@ -289,11 +257,7 @@
           <select
             id="departmentFilter"
             [value]="departmentFilter()"
-            (change)="
-              setDepartmentFilter(
-                $any($event.target).value
-              )
-            "
+            (change)="setDepartmentFilter($any($event.target).value)"
           >
             <option value="all">
               {{ text().allDepartments }}
@@ -325,11 +289,7 @@
           <select
             id="searchField"
             [value]="searchField()"
-            (change)="
-              setSearchField(
-                $any($event.target).value
-              )
-            "
+            (change)="setSearchField($any($event.target).value)"
           >
             <option value="all">
               {{ text().allFields }}
@@ -355,22 +315,14 @@
           </label>
 
           <div class="search-input-wrapper">
-            <span class="search-icon">
-              ⌕
-            </span>
+            <span class="search-icon">⌕</span>
 
             <input
               id="search"
               type="search"
               [value]="searchTerm()"
-              [placeholder]="
-                text().searchPlaceholder
-              "
-              (input)="
-                setSearchTerm(
-                  $any($event.target).value
-                )
-              "
+              [placeholder]="text().searchPlaceholder"
+              (input)="setSearchTerm($any($event.target).value)"
               autocomplete="off"
             />
           </div>
@@ -383,38 +335,32 @@
 
           <p>{{ text().loading }}</p>
         </div>
-      } @else if (
-        paginatedRecords().length > 0
-      ) {
+      } @else if (paginatedRecords().length > 0) {
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
+                <th>#</th>
                 <th>{{ text().code }}</th>
-                <th>
-                  {{ text().arabicName }}
-                </th>
-                <th>
-                  {{ text().englishName }}
-                </th>
-                <th>
-                  {{ text().department }}
-                </th>
-                <th>
-                  {{ text().deadline }}
-                </th>
-                <th>
-                  {{ text().actions }}
-                </th>
+                <th>{{ text().arabicName }}</th>
+                <th>{{ text().englishName }}</th>
+                <th>{{ text().department }}</th>
+                <th>{{ text().deadline }}</th>
+                <th>{{ text().actions }}</th>
               </tr>
             </thead>
 
             <tbody>
               @for (
                 record of paginatedRecords();
-                track record.id
+                track record.id;
+                let rowIndex = $index
               ) {
                 <tr>
+                  <td>
+                    {{ (currentPage() - 1) * pageSize + rowIndex + 1 }}
+                  </td>
+
                   <td>
                     <span class="code-badge">
                       {{ record.code }}
@@ -430,14 +376,8 @@
                   </td>
 
                   <td>
-                    <span
-                      class="department-badge"
-                    >
-                      {{
-                        departmentLabel(
-                          record.department
-                        )
-                      }}
+                    <span class="department-badge">
+                      {{ departmentLabel(record.department) }}
                     </span>
                   </td>
 
@@ -450,9 +390,7 @@
                       <button
                         type="button"
                         class="table-button edit-button"
-                        (click)="
-                          startEdit(record)
-                        "
+                        (click)="startEdit(record)"
                       >
                         {{ text().edit }}
                       </button>
@@ -460,9 +398,7 @@
                       <button
                         type="button"
                         class="table-button delete-button"
-                        (click)="
-                          openDeleteDialog(record)
-                        "
+                        (click)="openDeleteDialog(record)"
                       >
                         {{ text().delete }}
                       </button>
@@ -488,24 +424,17 @@
             <button
               type="button"
               class="pagination-button"
-              (click)="
-                goToPreviousPage()
-              "
+              (click)="goToPreviousPage()"
               [disabled]="currentPage() === 1"
             >
               {{ text().previous }}
             </button>
 
-            @for (
-              page of pageNumbers();
-              track page
-            ) {
+            @for (page of pageNumbers(); track page) {
               <button
                 type="button"
                 class="page-number"
-                [class.active]="
-                  currentPage() === page
-                "
+                [class.active]="currentPage() === page"
                 (click)="goToPage(page)"
               >
                 {{ page }}
@@ -516,9 +445,7 @@
               type="button"
               class="pagination-button"
               (click)="goToNextPage()"
-              [disabled]="
-                currentPage() === totalPages()
-              "
+              [disabled]="currentPage() === totalPages()"
             >
               {{ text().next }}
             </button>
@@ -527,9 +454,7 @@
               type="button"
               class="pagination-button"
               (click)="goToLastPage()"
-              [disabled]="
-                currentPage() === totalPages()
-              "
+              [disabled]="currentPage() === totalPages()"
             >
               {{ text().last }}
             </button>
@@ -554,10 +479,7 @@
                 min="1"
                 [max]="totalPages()"
                 [value]="jumpPage"
-                (input)="
-                  jumpPage =
-                    $any($event.target).value
-                "
+                (input)="jumpPage = $any($event.target).value"
               />
 
               <button

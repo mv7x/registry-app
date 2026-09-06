@@ -44,23 +44,22 @@
     background-color 180ms ease,
     color 180ms ease;
 }
-
 :host.dark-theme {
-  --bg: #080d18;
-  --surface: #101827;
-  --surface-soft: #151f30;
-  --surface-hover: #1a2638;
+  --bg: #121a1b;
+  --surface: #1e292b;
+  --surface-soft: #1e292b;
+  --surface-hover: #263537;
 
   --text: #f8fafc;
   --text-soft: #a6b3c4;
   --text-muted: #7f8ea3;
 
-  --border: #2a374b;
-  --border-strong: #3a4a61;
+  --border: #344345;
+  --border-strong: #435657;
 
-  --primary: #4f8cff;
-  --primary-hover: #6aa0ff;
-  --primary-soft: rgba(79, 140, 255, 0.14);
+  --primary: #2cb6ac;
+  --primary-hover: #24998f;
+  --primary-soft: rgba(44, 182, 172, 0.14);
 
   --danger: #f87171;
   --danger-soft: rgba(127, 29, 29, 0.30);
