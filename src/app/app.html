@@ -2,15 +2,9 @@
   <header class="app-header">
     <div class="header-content">
       <div class="header-copy">
-        <p class="eyebrow">
-          {{ text().registryManagement }}
-        </p>
-
+        <p class="eyebrow">{{ text().registryManagement }}</p>
         <h1>{{ text().title }}</h1>
-
-        <p class="subtitle">
-          {{ text().manageDescription }}
-        </p>
+        <p class="subtitle">{{ text().manageDescription }}</p>
       </div>
 
       <div class="header-actions">
@@ -18,21 +12,10 @@
           type="button"
           class="toolbar-button"
           (click)="toggleTheme()"
-          [attr.aria-label]="
-            theme() === 'light'
-              ? text().darkMode
-              : text().lightMode
-          "
+          [attr.aria-label]="theme() === 'light' ? text().darkMode : text().lightMode"
         >
-          <span class="button-icon">
-            {{ theme() === 'light' ? '☾' : '☀' }}
-          </span>
-
-          {{
-            theme() === 'light'
-              ? text().darkMode
-              : text().lightMode
-          }}
+          <span class="button-icon">{{ theme() === 'light' ? '☾' : '☀' }}</span>
+          {{ theme() === 'light' ? text().darkMode : text().lightMode }}
         </button>
 
         <button
@@ -40,15 +23,8 @@
           class="toolbar-button"
           (click)="toggleLanguage()"
         >
-          <span class="button-icon">
-            文
-          </span>
-
-          {{
-            language() === 'en'
-              ? text().arabic
-              : text().english
-          }}
+          <span class="button-icon">文</span>
+          {{ language() === 'en' ? text().arabic : text().english }}
         </button>
       </div>
     </div>
@@ -56,209 +32,106 @@
 
   <main class="content">
     @if (errorMessage) {
-      <div class="alert error-alert">
-        {{ errorMessage }}
-      </div>
+      <div class="alert error-alert">{{ errorMessage }}</div>
     }
 
     @if (deleteErrorMessage) {
-      <div class="alert error-alert">
-        {{ deleteErrorMessage }}
-      </div>
+      <div class="alert error-alert">{{ deleteErrorMessage }}</div>
     }
 
     <section class="panel form-panel">
       <div class="panel-heading">
         <div>
           <p class="section-kicker">
-            {{
-              editingId
-                ? text().editKicker
-                : text().newKicker
-            }}
+            {{ editingId ? text().editKicker : text().newKicker }}
           </p>
-
-          <h2>
-            {{
-              editingId
-                ? text().editRecord
-                : text().addRecord
-            }}
-          </h2>
+          <h2>{{ editingId ? text().editRecord : text().addRecord }}</h2>
         </div>
       </div>
 
-      <form
-        [formGroup]="form"
-        (ngSubmit)="submit()"
-        class="record-form"
-      >
+      <form [formGroup]="form" (ngSubmit)="submit()" class="record-form">
         <div class="field">
-          <label for="code">
-            {{ text().code }}
-          </label>
-
+          <label for="code">{{ text().code }}</label>
           <input
             id="code"
             formControlName="code"
             [placeholder]="text().code"
             autocomplete="off"
           />
-
-          @if (
-            form.controls.code.invalid &&
-            form.controls.code.touched
-          ) {
-            <small class="field-error">
-              {{ text().codeValidation }}
-            </small>
+          @if (form.controls.code.invalid && form.controls.code.touched) {
+            <small class="field-error">{{ text().codeValidation }}</small>
           }
-
-          @if (
-            form.controls.code.hasError('unique')
-          ) {
-            <small class="field-error">
-              {{ text().uniqueCode }}
-            </small>
+          @if (form.controls.code.hasError('unique')) {
+            <small class="field-error">{{ text().uniqueCode }}</small>
           }
         </div>
 
         <div class="field">
-          <label for="arabicName">
-            {{ text().arabicName }}
-          </label>
-
+          <label for="arabicName">{{ text().arabicName }}</label>
           <input
             id="arabicName"
             formControlName="arabicName"
             [placeholder]="text().arabicName"
             autocomplete="off"
           />
-
-          @if (
-            form.controls.arabicName.invalid &&
-            form.controls.arabicName.touched
-          ) {
-            <small class="field-error">
-              {{ text().arabicValidation }}
-            </small>
+          @if (form.controls.arabicName.invalid && form.controls.arabicName.touched) {
+            <small class="field-error">{{ text().arabicValidation }}</small>
           }
         </div>
 
         <div class="field">
-          <label for="englishName">
-            {{ text().englishName }}
-          </label>
-
+          <label for="englishName">{{ text().englishName }}</label>
           <input
             id="englishName"
             formControlName="englishName"
             [placeholder]="text().englishName"
             autocomplete="off"
           />
-
-          @if (
-            form.controls.englishName.invalid &&
-            form.controls.englishName.touched
-          ) {
-            <small class="field-error">
-              {{ text().englishValidation }}
-            </small>
+          @if (form.controls.englishName.invalid && form.controls.englishName.touched) {
+            <small class="field-error">{{ text().englishValidation }}</small>
           }
         </div>
 
         <div class="field">
-          <label for="department">
-            {{ text().department }}
-          </label>
-
-          <select
-            id="department"
-            formControlName="department"
-          >
-            <option value="">
-              {{ text().selectDepartment }}
-            </option>
-
-            <option value="HR">
-              {{ text().hr }}
-            </option>
-
-            <option value="Finance">
-              {{ text().finance }}
-            </option>
-
-            <option value="IT">
-              {{ text().it }}
-            </option>
-
-            <option value="Legal">
-              {{ text().legal }}
-            </option>
+          <label for="department">{{ text().department }}</label>
+          <select id="department" formControlName="department">
+            <option value="">{{ text().selectDepartment }}</option>
+            <option value="HR">{{ text().hr }}</option>
+            <option value="Finance">{{ text().finance }}</option>
+            <option value="IT">{{ text().it }}</option>
+            <option value="Legal">{{ text().legal }}</option>
           </select>
-
-          @if (
-            form.controls.department.invalid &&
-            form.controls.department.touched
-          ) {
-            <small class="field-error">
-              {{ text().departmentRequired }}
-            </small>
+          @if (form.controls.department.invalid && form.controls.department.touched) {
+            <small class="field-error">{{ text().departmentRequired }}</small>
           }
         </div>
 
         <div class="field">
-          <label for="submissionDeadline">
-            {{ text().deadline }}
-          </label>
-
+          <label for="submissionDeadline">{{ text().deadline }}</label>
           <input
             id="submissionDeadline"
             type="date"
             formControlName="submissionDeadline"
           />
-
-          @if (
-            form.controls.submissionDeadline
-              .hasError('required') &&
-            form.controls.submissionDeadline.touched
-          ) {
-            <small class="field-error">
-              {{ text().deadlineRequired }}
-            </small>
+          @if (form.controls.submissionDeadline.hasError('required') && form.controls.submissionDeadline.touched) {
+            <small class="field-error">{{ text().deadlineRequired }}</small>
           }
-
-          @if (
-            form.controls.submissionDeadline
-              .hasError('past')
-          ) {
-            <small class="field-error">
-              {{ text().deadlinePast }}
-            </small>
+          @if (form.controls.submissionDeadline.hasError('past')) {
+            <small class="field-error">{{ text().deadlinePast }}</small>
           }
         </div>
 
         @if (form.hasError('duplicate')) {
-          <div class="form-wide-error">
-            {{ text().duplicateRecord }}
-          </div>
+          <div class="form-wide-error">{{ text().duplicateRecord }}</div>
         }
 
         <div class="form-actions">
-          <button
-            type="submit"
-            class="primary-button"
-            [disabled]="form.invalid"
-          >
+          <button type="submit" class="primary-button" [disabled]="form.invalid">
             {{ editingId ? text().save : text().add }}
           </button>
 
           @if (editingId) {
-            <button
-              type="button"
-              class="secondary-button"
-              (click)="cancelEdit()"
-            >
+            <button type="button" class="secondary-button" (click)="cancelEdit()">
               {{ text().cancel }}
             </button>
           }
@@ -269,108 +142,51 @@
     <section class="panel records-panel">
       <div class="records-top">
         <div>
-          <p class="section-kicker">
-            {{ text().registryManagement }}
-          </p>
-
-          <h2>
-            {{ totalFilteredRecords() }}
-            {{ text().matchingRecords }}
-          </h2>
+          <p class="section-kicker">{{ text().registryManagement }}</p>
+          <h2>{{ totalFilteredRecords() }} {{ text().matchingRecords }}</h2>
         </div>
       </div>
 
       <div class="filters">
         <div class="field">
-          <label for="departmentFilter">
-            {{ text().department }}
-          </label>
-
+          <label for="departmentFilter">{{ text().department }}</label>
           <select
             id="departmentFilter"
             [value]="departmentFilter()"
-            (change)="
-              setDepartmentFilter(
-                $any($event.target).value
-              )
-            "
+            (change)="setDepartmentFilter($any($event.target).value)"
           >
-            <option value="all">
-              {{ text().allDepartments }}
-            </option>
-
-            <option value="HR">
-              {{ text().hr }}
-            </option>
-
-            <option value="Finance">
-              {{ text().finance }}
-            </option>
-
-            <option value="IT">
-              {{ text().it }}
-            </option>
-
-            <option value="Legal">
-              {{ text().legal }}
-            </option>
+            <option value="all">{{ text().allDepartments }}</option>
+            <option value="HR">{{ text().hr }}</option>
+            <option value="Finance">{{ text().finance }}</option>
+            <option value="IT">{{ text().it }}</option>
+            <option value="Legal">{{ text().legal }}</option>
           </select>
         </div>
 
         <div class="field">
-          <label for="searchField">
-            {{ text().searchField }}
-          </label>
-
+          <label for="searchField">{{ text().searchField }}</label>
           <select
             id="searchField"
             [value]="searchField()"
-            (change)="
-              setSearchField(
-                $any($event.target).value
-              )
-            "
+            (change)="setSearchField($any($event.target).value)"
           >
-            <option value="all">
-              {{ text().allFields }}
-            </option>
-
-            <option value="code">
-              {{ text().searchCode }}
-            </option>
-
-            <option value="name">
-              {{ text().searchName }}
-            </option>
-
-            <option value="deadline">
-              {{ text().searchDeadline }}
-            </option>
+            <option value="all">{{ text().allFields }}</option>
+            <option value="code">{{ text().searchCode }}</option>
+            <option value="name">{{ text().searchName }}</option>
+            <option value="deadline">{{ text().searchDeadline }}</option>
           </select>
         </div>
 
         <div class="field search-input-field">
-          <label for="search">
-            {{ text().search }}
-          </label>
-
+          <label for="search">{{ text().search }}</label>
           <div class="search-input-wrapper">
-            <span class="search-icon">
-              ⌕
-            </span>
-
+            <span class="search-icon">⌕</span>
             <input
               id="search"
               type="search"
               [value]="searchTerm()"
-              [placeholder]="
-                text().searchPlaceholder
-              "
-              (input)="
-                setSearchTerm(
-                  $any($event.target).value
-                )
-              "
+              [placeholder]="text().searchPlaceholder"
+              (input)="setSearchTerm($any($event.target).value)"
               autocomplete="off"
             />
           </div>
@@ -380,89 +196,49 @@
       @if (loading()) {
         <div class="state-container">
           <div class="spinner"></div>
-
           <p>{{ text().loading }}</p>
         </div>
-      } @else if (
-        paginatedRecords().length > 0
-      ) {
+      } @else if (paginatedRecords().length > 0) {
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
+                <th>#</th>
                 <th>{{ text().code }}</th>
-                <th>
-                  {{ text().arabicName }}
-                </th>
-                <th>
-                  {{ text().englishName }}
-                </th>
-                <th>
-                  {{ text().department }}
-                </th>
-                <th>
-                  {{ text().deadline }}
-                </th>
-                <th>
-                  {{ text().actions }}
-                </th>
+                <th>{{ text().arabicName }}</th>
+                <th>{{ text().englishName }}</th>
+                <th>{{ text().department }}</th>
+                <th>{{ text().deadline }}</th>
+                <th>{{ text().actions }}</th>
               </tr>
             </thead>
 
             <tbody>
-              @for (
-                record of paginatedRecords();
-                track record.id
-              ) {
+              @for (record of paginatedRecords(); track record.id; let rowIndex = $index) {
                 <tr>
+                  <td>{{ (currentPage() - 1) * pageSize + rowIndex + 1 }}</td>
+                  <td><span class="code-badge">{{ record.code }}</span></td>
+                  <td>{{ record.arabicName }}</td>
+                  <td>{{ record.englishName }}</td>
                   <td>
-                    <span class="code-badge">
-                      {{ record.code }}
+                    <span class="department-badge">
+                      {{ departmentLabel(record.department) }}
                     </span>
                   </td>
-
-                  <td>
-                    {{ record.arabicName }}
-                  </td>
-
-                  <td>
-                    {{ record.englishName }}
-                  </td>
-
-                  <td>
-                    <span
-                      class="department-badge"
-                    >
-                      {{
-                        departmentLabel(
-                          record.department
-                        )
-                      }}
-                    </span>
-                  </td>
-
-                  <td>
-                    {{ record.submissionDeadline }}
-                  </td>
-
+                  <td>{{ record.submissionDeadline }}</td>
                   <td>
                     <div class="row-actions">
                       <button
                         type="button"
                         class="table-button edit-button"
-                        (click)="
-                          startEdit(record)
-                        "
+                        (click)="startEdit(record)"
                       >
                         {{ text().edit }}
                       </button>
-
                       <button
                         type="button"
                         class="table-button delete-button"
-                        (click)="
-                          openDeleteDialog(record)
-                        "
+                        (click)="openDeleteDialog(record)"
                       >
                         {{ text().delete }}
                       </button>
@@ -481,114 +257,69 @@
               class="pagination-button"
               (click)="goToFirstPage()"
               [disabled]="currentPage() === 1"
-            >
-              {{ text().first }}
-            </button>
-
+            >{{ text().first }}</button>
             <button
               type="button"
               class="pagination-button"
-              (click)="
-                goToPreviousPage()
-              "
+              (click)="goToPreviousPage()"
               [disabled]="currentPage() === 1"
-            >
-              {{ text().previous }}
-            </button>
+            >{{ text().previous }}</button>
 
-            @for (
-              page of pageNumbers();
-              track page
-            ) {
+            @for (page of pageNumbers(); track page) {
               <button
                 type="button"
                 class="page-number"
-                [class.active]="
-                  currentPage() === page
-                "
+                [class.active]="currentPage() === page"
                 (click)="goToPage(page)"
-              >
-                {{ page }}
-              </button>
+              >{{ page }}</button>
             }
 
             <button
               type="button"
               class="pagination-button"
               (click)="goToNextPage()"
-              [disabled]="
-                currentPage() === totalPages()
-              "
-            >
-              {{ text().next }}
-            </button>
-
+              [disabled]="currentPage() === totalPages()"
+            >{{ text().next }}</button>
             <button
               type="button"
               class="pagination-button"
               (click)="goToLastPage()"
-              [disabled]="
-                currentPage() === totalPages()
-              "
-            >
-              {{ text().last }}
-            </button>
+              [disabled]="currentPage() === totalPages()"
+            >{{ text().last }}</button>
           </div>
 
           <div class="pagination-meta">
             <span class="page-status">
-              {{ text().page }}
-              {{ currentPage() }}
-              {{ text().of }}
-              {{ totalPages() }}
+              {{ text().page }} {{ currentPage() }} {{ text().of }} {{ totalPages() }}
             </span>
 
             <div class="jump-control">
-              <label for="jump-page">
-                {{ text().jumpToPage }}
-              </label>
-
+              <label for="jump-page">{{ text().jumpToPage }}</label>
               <input
                 id="jump-page"
                 type="number"
                 min="1"
                 [max]="totalPages()"
                 [value]="jumpPage"
-                (input)="
-                  jumpPage =
-                    $any($event.target).value
-                "
+                (input)="jumpPage = $any($event.target).value"
               />
-
               <button
                 type="button"
                 class="secondary-button compact"
                 (click)="jumpToPage()"
-              >
-                {{ text().go }}
-              </button>
+              >{{ text().go }}</button>
             </div>
           </div>
 
           @if (jumpPageError) {
-            <div class="jump-error">
-              {{ jumpPageError }}
-            </div>
+            <div class="jump-error">{{ jumpPageError }}</div>
           }
         </div>
       } @else {
         <div class="state-container empty-state">
-          <div class="empty-icon">
-            ⌁
-          </div>
-
-          <h3>
-            {{ text().noRecords }}
-          </h3>
-
-          <p>
-            {{ text().emptyDescription }}
-          </p>
+          <div class="empty-icon">⌁</div>
+          <h3>{{ text().noRecords }}</h3>
+          <p>{{ text().emptyDescription }}</p>
         </div>
       }
     </section>
@@ -596,10 +327,7 @@
 </div>
 
 @if (deleteTarget) {
-  <div
-    class="dialog-backdrop"
-    (click)="cancelDelete()"
-  >
+  <div class="dialog-backdrop" (click)="cancelDelete()">
     <div
       class="dialog"
       role="dialog"
@@ -607,52 +335,25 @@
       aria-labelledby="delete-dialog-title"
       (click)="$event.stopPropagation()"
     >
-      <div class="dialog-icon">
-        !
-      </div>
+      <div class="dialog-icon">!</div>
 
       <div class="dialog-content">
-        <p class="section-kicker">
-          {{ text().delete }}
-        </p>
-
-        <h2 id="delete-dialog-title">
-          {{ text().deleteRecord }}
-        </h2>
-
-        <p>
-          {{ text().deleteQuestion }}
-        </p>
+        <p class="section-kicker">{{ text().delete }}</p>
+        <h2 id="delete-dialog-title">{{ text().deleteRecord }}</h2>
+        <p>{{ text().deleteQuestion }}</p>
 
         <div class="delete-preview">
-          <strong>
-            {{ deleteTarget.arabicName }}
-          </strong>
-
-          <span>
-            {{ deleteTarget.englishName }}
-          </span>
-
-          <span>
-            #{{ deleteTarget.code }}
-          </span>
+          <strong>{{ deleteTarget.arabicName }}</strong>
+          <span>{{ deleteTarget.englishName }}</span>
+          <span>#{{ deleteTarget.code }}</span>
         </div>
       </div>
 
       <div class="dialog-actions">
-        <button
-          type="button"
-          class="secondary-button"
-          (click)="cancelDelete()"
-        >
+        <button type="button" class="secondary-button" (click)="cancelDelete()">
           {{ text().cancel }}
         </button>
-
-        <button
-          type="button"
-          class="danger-button"
-          (click)="confirmDelete()"
-        >
+        <button type="button" class="danger-button" (click)="confirmDelete()">
           {{ text().confirm }}
         </button>
       </div>
